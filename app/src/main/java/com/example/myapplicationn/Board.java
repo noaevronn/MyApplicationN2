@@ -38,7 +38,7 @@ public class Board extends View
         super.onDraw(canvas);
 
         canvas.drawCircle(x, y, r, paint);
-
+// added comment
         canvas.drawBitmap(bitmap,x, y, null);
     }
 
