@@ -17,18 +17,24 @@ public class Board extends View
     Paint paint;
     Bitmap bitmap;
 
+    MyCircle circle;
+    Picture pic;
+
     public Board(Context context)
     {
         super(context);
-        x = 900;
-        y = 700;
-        r = 500;
+        circle = new MyCircle(900,700,500);
+    //    x = 900;
+     //   y = 700;
+       // r = 500;
         this.context = context;
-        paint = new Paint();
-        paint.setColor(Color.YELLOW);
-        paint.setStrokeWidth(12);
+    //    paint = new Paint();
+      //  paint.setColor(Color.YELLOW);
+       // paint.setStrokeWidth(12);
 
+        //pic = new Picture();
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.snowman);
+
     }
 
 
@@ -37,7 +43,7 @@ public class Board extends View
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(x, y, r, paint);
+        canvas.drawCircle(circle.getX(), circle.getY(), circle.getR(), circle.getPaint());
 // added comment
         canvas.drawBitmap(bitmap,x, y, null);
     }
