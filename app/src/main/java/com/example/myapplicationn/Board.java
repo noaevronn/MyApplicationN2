@@ -6,9 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.ArrayList;
 
 public class Board extends View
 {
@@ -19,25 +22,46 @@ public class Board extends View
 
     MyCircle circle;
     Picture pic;
+    int[] bitmaps;
+
+    ArrayList<Card> deck = new ArrayList<>();
+
 
     public Board(Context context)
     {
         super(context);
         circle = new MyCircle(900,700,500);
-    //    x = 900;
-     //   y = 700;
-       // r = 500;
         this.context = context;
-    //    paint = new Paint();
-      //  paint.setColor(Color.YELLOW);
-       // paint.setStrokeWidth(12);
 
         //pic = new Picture();
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.snowman);
 
+        bitmaps = new int[]{R.drawable.airplane, R.drawable.artistpalette, R.drawable.ballet, R.drawable.bathtub, R.drawable.bomb, R.drawable.bowling, R.drawable.bubbles, R.drawable.camera, R.drawable.cheese, R.drawable.coral, R.drawable.corn, R.drawable.cyclone, R.drawable.doughnut, R.drawable.dragonface, R.drawable.firecracker, R.drawable.gloves, R.drawable.hat, R.drawable.infinity, R.drawable.jackolantern, R.drawable.joker, R.drawable.key, R.drawable.kite, R.drawable.locked, R.drawable.luggage, R.drawable.medal, R.drawable.microphone, R.drawable.money, R.drawable.moon, R.drawable.mountain, R.drawable.mushroom, R.drawable.nazaramulet, R.drawable.pistol, R.drawable.rocket, R.drawable.sandal, R.drawable.saxophone, R.drawable.shopping, R.drawable.snowflake, R.drawable.snowman, R.drawable.spider, R.drawable.sunglasses, R.drawable.tent, R.drawable.tiger, R.drawable.truck, R.drawable.tulip, R.drawable.umbrella, R.drawable.volcano, R.drawable.waterwave, R.drawable.wedding, R.drawable.yoyo};
+
+        deck.add(new Card())
+
+
     }
 
-
+    public void CreateDeck()
+    {
+        int n = 7;
+        int numOfSymbols = n + 1;
+        Card card = new Card();
+        for (int i = 1; i<= n+1; i++)
+        {
+            card.addImage(bitmaps[i]);
+        }
+        deck.add(card);
+        for (int j=1; j<=n; j++) {
+            Card card = new Card();
+            card.addImage(1);
+            for (int k=1; k<=n; k++) {
+                card.addImage(n * j + (k+1));
+            }
+            cards.push(card)
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
