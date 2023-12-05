@@ -31,19 +31,32 @@ public class Board extends View
     public Board(Context context)
     {
         super(context);
-        circle = new MyCircle(900,700,500);
+        circle = new MyCircle(AppConstants.X, AppConstants.Y ,AppConstants.RADIUS);
         this.context = context;
 
         //pic = new Picture();
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.snowman);
+
 
         bitmaps = new int[]{R.drawable.airplane, R.drawable.artistpalette, R.drawable.ballet, R.drawable.bathtub, R.drawable.bomb, R.drawable.bowling, R.drawable.bubbles, R.drawable.camera, R.drawable.cheese, R.drawable.coral, R.drawable.corn, R.drawable.cyclone, R.drawable.doughnut, R.drawable.dragonface, R.drawable.firecracker, R.drawable.gloves, R.drawable.hat, R.drawable.infinity, R.drawable.jackolantern, R.drawable.joker, R.drawable.key, R.drawable.kite, R.drawable.locked, R.drawable.luggage, R.drawable.medal, R.drawable.microphone, R.drawable.money, R.drawable.moon, R.drawable.mountain, R.drawable.mushroom, R.drawable.nazaramulet, R.drawable.pistol, R.drawable.rocket, R.drawable.sandal, R.drawable.saxophone, R.drawable.shopping, R.drawable.snowflake, R.drawable.snowman, R.drawable.spider, R.drawable.sunglasses, R.drawable.tent, R.drawable.tiger, R.drawable.truck, R.drawable.tulip, R.drawable.umbrella, R.drawable.volcano, R.drawable.waterwave, R.drawable.wedding, R.drawable.yoyo};
 
       //  deck.add(new Card());
 
         CreateDeck();
+
+        showCard(0);
         Toast.makeText(context,"" + CheckDeck(),Toast.LENGTH_LONG).show();
 
+    }
+
+    private void showCard(int index) {
+        int[] arr = deck.get(index).getCard();
+
+        for (int i = 0; i <arr.length ; i++)
+        {
+            bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+            bitmap.setWidth((int) AppConstants.arrX[i]);
+            bitmap.setHeight((int) AppConstants.arrY[i]);
+        }
     }
 
     public void CreateDeck()
@@ -54,7 +67,7 @@ public class Board extends View
 
         for (int i = 1; i <= numOfSymbols; i++)  //build the first card
         {
-            card.addImage(bitmaps[i]);
+            card.addImage(i);
         }
         deck.add(card);
 
