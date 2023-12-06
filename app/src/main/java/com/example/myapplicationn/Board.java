@@ -51,12 +51,7 @@ public class Board extends View
     private void showCard(int index) {
         int[] arr = deck.get(index).getCard();
 
-        for (int i = 0; i <arr.length ; i++)
-        {
-            bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
-            bitmap.setWidth((int) AppConstants.arrX[i]);
-            bitmap.setHeight((int) AppConstants.arrY[i]);
-        }
+
     }
 
     public void CreateDeck()
@@ -146,7 +141,20 @@ public class Board extends View
 
         canvas.drawCircle(circle.getX(), circle.getY(), circle.getR(), circle.getPaint());
 // added comment
-        canvas.drawBitmap(bitmap,x, y, null);
+
+
+            int[] arr = deck.get(0).getCard();
+        // draw card
+            for (int i = 0; i <arr.length ; i++)
+            {
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+              //  bitmap.setWidth((int) AppConstants.arrX[i]);
+               // bitmap.setHeight((int) AppConstants.arrY[i]);
+
+                canvas.drawBitmap(bitmap, AppConstants.arrX[i] ,AppConstants.arrY[i], null);
+
+
+            }
     }
 
     @Override
