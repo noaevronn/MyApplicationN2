@@ -154,13 +154,16 @@ public class Board extends View
         {
             float x = event.getX();
             float y = event.getY();
+            int num = 1;
+            if (y > AppConstants.Y2 - AppConstants.RADIUS)
+                num = 2;
             Log.d("TOUCH", "onTouchEvent: " + x + "," + y);
             // check which image
-            int i = findClickedImage(x,y);
+            int i = findClickedImage(x,y, num);
             Log.d("ON TOUCH ", "onTouchEvent: " + i );
             if (i != -1)
             {
-                boolean flag = CheckIfTrue(i);
+                boolean flag = CheckIfTrue(i, num);
                 Log.d("check ", "flag: " +  flag);
             }
         }
@@ -169,27 +172,52 @@ public class Board extends View
 
     }
 
-    private boolean CheckIfTrue(int indx)
+    private boolean CheckIfTrue(int indx, int num)
     {
-        int[] arr1 = deck.get(curretCard).getCard();
-        int[] arr2 = deck.get(curretCard + 1).getCard();
-        for (int i = 0; i <arr1 .length ; i++)
+        if (num == 1)
         {
-            if (arr1[indx] == arr2[i])
-                return true;
+            int[] arr1 = deck.get(curretCard).getCard();
+            int[] arr2 = deck.get(curretCard + 1).getCard();
+            for (int i = 0; i <arr1 .length ; i++)
+            {
+                if (arr1[indx] == arr2[i])
+                    return true;
+            }
+        }
+        else
+        {
+            int[] arr1 = deck.get(curretCard + 1).getCard();
+            int[] arr2 = deck.get(curretCard).getCard();
+            for (int i = 0; i < arr1 .length ; i++)
+            {
+                if (arr1[indx] == arr2[i])
+                    return true;
+            }
         }
         return  false;
     }
 
-    private int findClickedImage(float x, float y)
+    private int findClickedImage(float x, float y, int num)
     {
-        int[] arr = deck.get(curretCard).getCard();
-        for (int i = 0; i <arr.length ; i++)
+        if (num == 1)
         {
-            bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+            int[] arr = deck.get(curretCard).getCard();
+            for (int i = 0; i < arr.length; i++) {
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
 
-            if ((x > AppConstants.arrX[i] && x < (AppConstants.arrX[i] + bitmap.getWidth())) &&(y > AppConstants.arrY1[i] && y < (AppConstants.arrY1[i] + bitmap.getHeight())))
-                return i;
+                if ((x > AppConstants.arrX[i] && x < (AppConstants.arrX[i] + bitmap.getWidth())) && (y > AppConstants.arrY1[i] && y < (AppConstants.arrY1[i] + bitmap.getHeight())))
+                    return i;
+            }
+        }
+        else
+        {
+            int[] arr = deck.get(curretCard + 1).getCard();
+            for (int i = 0; i < arr.length; i++) {
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+
+                if ((x > AppConstants.arrX[i] && x < (AppConstants.arrX[i] + bitmap.getWidth())) && (y > AppConstants.arrY2[i] && y < (AppConstants.arrY2[i] + bitmap.getHeight())))
+                    return i;
+            }
         }
         return  -1;
     }
