@@ -8,15 +8,6 @@ public class MyCircle
     private float x;
     private float y;
     private float r;
-
-    public Paint getPaint() {
-        return paint;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
-
     private Paint paint;
 
     public MyCircle(float x, float y, float r) {
@@ -28,9 +19,16 @@ public class MyCircle
         paint.setStrokeWidth(12);
     }
 
-    public MyCircle() {
+    public MyCircle() {}
+
+    public Paint getPaint() {
+        return paint;
     }
 
+    public void setPaint(Paint paint)
+    {
+        this.paint = paint;
+    }
 
     public float getX() {
         return x;
