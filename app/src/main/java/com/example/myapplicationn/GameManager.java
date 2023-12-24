@@ -3,13 +3,14 @@ package com.example.myapplicationn;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameManager implements IGame{
 
     Board board;
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
-
+    ArrayList<Integer> Indxs = new ArrayList<>();
 
     public GameManager(Board b)
     {
@@ -17,6 +18,11 @@ public class GameManager implements IGame{
         CreateDeck();
         b.setGameManager(this);
         board.makeTurn(deck.get(currentCard), deck.get(currentCard + 1));
+        for (int i = 0; i < deck.size(); i++)
+        {
+            Indxs.add(i);
+        }
+        Collections.shuffle(Indxs);
     }
 
     @Override
