@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
         linearLayout = (LinearLayout)findViewById(R.id.game);
         board = new Board(this);
 
