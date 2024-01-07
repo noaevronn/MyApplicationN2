@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505356327016",
+    "project_id": "myapplicationdouble",
+    "storage_bucket": "myapplicationdouble.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505356327016:android:1c4189e74e65e6a3b643dd",
+        "android_client_info": {
+          "package_name": "com.example.myapplicationn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcOPRmvOHB8SCr7Qg8Fq9b1B1prIPoe7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
