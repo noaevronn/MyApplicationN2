@@ -11,7 +11,6 @@ public class GameManager implements IGame{
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
     ArrayList<Integer> Indxs = new ArrayList<>();
-
     public GameManager(Board b)
     {
         board = b;
@@ -111,5 +110,37 @@ public class GameManager implements IGame{
         }
 
         return count;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public void setDeck(ArrayList<Card> deck) {
+        this.deck = deck;
+    }
+
+    public int getCurrentCard() {
+        return currentCard;
+    }
+
+    public void setCurrentCard(int currentCard) {
+        this.currentCard = currentCard;
+    }
+
+    public ArrayList<Integer> getIndxs() {
+        return Indxs;
+    }
+
+    public void setIndxs(ArrayList<Integer> indxs) {
+        Indxs = indxs;
     }
 }
