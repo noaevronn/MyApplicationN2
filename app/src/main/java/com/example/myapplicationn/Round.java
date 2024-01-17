@@ -1,5 +1,7 @@
 package com.example.myapplicationn;
 
+import android.view.View;
+
 import java.util.ArrayList;
 
 public class Round
@@ -8,13 +10,11 @@ public class Round
     float time2;
     int status;
     ArrayList<Integer> myGameDeck = new ArrayList<>();
-    ArrayList<Integer> otherGameDeck = new ArrayList<>();
-    public Round(){}
 
-    public Round(float t)
+    public Round()
     {
-        this.time1 = t;
         status = AppConstants.CREATED;
+
     }
 
     public float getTime1() {
@@ -49,11 +49,5 @@ public class Round
         this.myGameDeck = myGameDeck;
     }
 
-    public ArrayList<Integer> getOtherGameDeck() {
-        return otherGameDeck;
-    }
 
-    public void setOtherGameDeck(ArrayList<Integer> otherGameDeck) {
-        this.otherGameDeck = otherGameDeck;
-    }
 }
