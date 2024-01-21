@@ -41,4 +41,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinB" />
+
+    <TextView
+        android:id="@+id/codeTextV"
+        android:layout_width="333dp"
+        android:layout_height="241dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="33dp"
+        android:text=" "
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shareImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginBottom="382dp"
+        android:onClick="ShareWithFriends"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/share"
+        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>
