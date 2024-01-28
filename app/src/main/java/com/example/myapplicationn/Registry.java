@@ -29,7 +29,7 @@ public class Registry extends AppCompatActivity
             String mail = mAuth.getCurrentUser().getEmail();
             String userId = mAuth.getCurrentUser().getUid();
             Toast.makeText(this, userId, Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Registry.this, MainActivity.class);
+            Intent intent = new Intent(Registry.this, JoinGame.class);
             startActivity(intent);
         }
     }

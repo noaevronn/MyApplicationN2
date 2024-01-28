@@ -2,6 +2,8 @@ package com.example.myapplicationn;
 
 import android.util.Log;
 
+import com.google.firestore.admin.v1.Index;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,7 +12,7 @@ public class GameManager implements IGame{
     Board board;
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
-    ArrayList<Integer> Indxs = new ArrayList<>();
+    ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
     public GameManager(Board b)
     {
         board = b;
@@ -24,6 +26,20 @@ public class GameManager implements IGame{
         Collections.shuffle(Indxs);
     }
 
+
+    // turns
+    // time
+    // status??
+    // listen
+    // set - update
+    public GameManager(Board b,ArrayList<Integer> d)
+    {
+        board = b;
+        CreateDeck();
+        Indxs = d;// ???
+
+
+    }
     @Override
     public void userResult(boolean res)
     {
