@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity
         //String action = getIntent().getStringExtra("action");
         gameID = getIntent().getStringExtra("GameID");
 
+        board = new Board(MainActivity.this);
+        linearLayout = (LinearLayout)findViewById(R.id.game);
+
 
         showGame();
     }
@@ -47,11 +50,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Round r = documentSnapshot.toObject(Round.class);
-                linearLayout = (LinearLayout)findViewById(R.id.game);
-                board = new Board(MainActivity.this);
+                GameManager gm = new GameManager(board,r.getMyGameDeck());
+              //  GameManager gm= new GameManager(board);
                 linearLayout.addView(board);
 
-                GameManager gm = new GameManager(board,r.getMyGameDeck());
             }
         });
 

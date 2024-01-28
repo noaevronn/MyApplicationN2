@@ -36,7 +36,12 @@ public class GameManager implements IGame{
     {
         board = b;
         CreateDeck();
+        b.setGameManager(this);
         Indxs = d;// ???
+
+        board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
+
+
 
 
     }
