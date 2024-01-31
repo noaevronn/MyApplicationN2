@@ -74,7 +74,7 @@ public class JoinGame extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 // image view has been clicked
-                                setClickToChat("invited to join my game... Code for the game is:\n" + documentReference.getId());
+                        //        setClickToChat("invited to join my game... Code for the game is:\n" + documentReference.getId());
                                 Log.d("ONSUCCESS", " id " +documentReference.getId());
                                 Intent i = new Intent(JoinGame.this,MainActivity.class);
                                 i.putExtra("GameID",documentReference.getId());
@@ -101,5 +101,10 @@ public class JoinGame extends AppCompatActivity {
     {
         Intent i = new Intent(JoinGame.this, MainActivity.class);
         startActivity(i);
+    }
+
+    public void onClickJoinGame(View view)
+    {
+
     }
 }
