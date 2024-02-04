@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class JoinGame extends AppCompatActivity {
 
     Board board;
     GameManager gm;
+    private String gameId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,25 @@ public class JoinGame extends AppCompatActivity {
         r.setMyGameDeck(gm.getIndxs());
         AddRoundToFb(r);
 
+    }
+
+    public void ShareWithFriends(View view) //נפתח מלחיצה על התמונה של השיתוף
+    {
+        //אינטנט מרומז
+        Intent intent = new Intent(Intent.ACTION_SEND); //אומר שרוצים לשתף מידע
+        intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello! this is your code for the game:" + gameId + "    .Join and play with me:) ");
+        startActivityForResult(Intent.createChooser(intent, "Share using"), 1);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("gameId: ", gameId);
+        startActivity(i);
     }
 
     public  void setClickToChat(String message){
@@ -66,9 +87,14 @@ public class JoinGame extends AppCompatActivity {
                     {
                         TextView tv = findViewById(R.id.codeTextV);
                         ImageView imageView = findViewById(R.id.shareImageView);
-                        tv.setText("Your game code is: " + documentReference.getId() + "  .Share it with your friend!");
+                        gameId = documentReference.getId();
+                        tv.setText("Your game code is: " + gameId + "  .Share it with your friend!");
                         tv.setVisibility(View.VISIBLE);
                         imageView.setVisibility(View.VISIBLE);
+                        EditText editText = findViewById(R.id.editTextCode);
+                        editText.setVisibility(View.INVISIBLE);
+                        TextView textView = findViewById(R.id.textViewCode);
+                        textView.setVisibility(View.INVISIBLE);
 
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -91,11 +117,9 @@ public class JoinGame extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e)
                     {
                         Log.d("ONFAILRE", "onFailure: " + e.getMessage());
-
                     }
                 });
     }
-
 
     public void onClickPractice(View view)
     {
@@ -105,6 +129,14 @@ public class JoinGame extends AppCompatActivity {
 
     public void onClickJoinGame(View view)
     {
+        EditText editText = findViewById(R.id.editTextCode);
+        editText.setVisibility(View.VISIBLE);
+        TextView textView = findViewById(R.id.textViewCode);
+        textView.setVisibility(View.VISIBLE);
+        TextView tv = findViewById(R.id.codeTextV);
+        tv.setVisibility(View.INVISIBLE);
+        ImageView imageView = findViewById(R.id.shareImageView);
+        imageView.setVisibility(View.INVISIBLE);
 
     }
 }

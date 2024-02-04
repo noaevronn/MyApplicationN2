@@ -41,10 +41,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showGame() {
-
-
         // 1 get game from firebase
-
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         fb.collection("Rounds").document(gameID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -53,12 +50,7 @@ public class MainActivity extends AppCompatActivity
                 GameManager gm = new GameManager(board,r.getMyGameDeck());
               //  GameManager gm= new GameManager(board);
                 linearLayout.addView(board);
-
             }
         });
-
-
-
     }
-
 }
