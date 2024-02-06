@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,12 +55,16 @@ public class JoinGame extends AppCompatActivity {
 
     }
 
+
     protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data)
     {
+        //אחרי שליחת הקוד מעביר למסך הבא של המשחק עצמו בחדר שנשלח לחבר
         super.onActivityResult(requestCode, resultCode, data);
 
         Intent i = new Intent(this, MainActivity.class);
         i.putExtra("gameId: ", gameId);
+        i.putExtra("player", AppConstants.HOST);
+        i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
         startActivity(i);
     }
 
@@ -95,6 +100,8 @@ public class JoinGame extends AppCompatActivity {
                         editText.setVisibility(View.INVISIBLE);
                         TextView textView = findViewById(R.id.textViewCode);
                         textView.setVisibility(View.INVISIBLE);
+                        Button b = findViewById(R.id.buttonJoin);
+                        b.setVisibility(View.INVISIBLE);
 
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -124,19 +131,36 @@ public class JoinGame extends AppCompatActivity {
     public void onClickPractice(View view)
     {
         Intent i = new Intent(JoinGame.this, MainActivity.class);
+        i.putExtra(AppConstants.GAME_CONFIG, AppConstants.ONE_PHONE);
         startActivity(i);
     }
 
     public void onClickJoinGame(View view)
     {
+        //מציג את האדיט טקסט והכפתור של ההצטרפות לחדר
         EditText editText = findViewById(R.id.editTextCode);
         editText.setVisibility(View.VISIBLE);
         TextView textView = findViewById(R.id.textViewCode);
         textView.setVisibility(View.VISIBLE);
+        Button b = findViewById(R.id.buttonJoin);
+        b.setVisibility(View.VISIBLE);
         TextView tv = findViewById(R.id.codeTextV);
         tv.setVisibility(View.INVISIBLE);
         ImageView imageView = findViewById(R.id.shareImageView);
         imageView.setVisibility(View.INVISIBLE);
 
+    }
+
+    public void onClickToJoinRound(View view)
+    {
+        //לאחר הלחיצה על הכפתור של ההצטרפות לחדר
+        EditText editText = findViewById(R.id.editTextCode);
+        gameId = editText.getText().toString(); //שומר את הקוד שהמשתמש הכניס
+        Intent i = new Intent(this, MainActivity.class);
+        //putExtra - מוסיף מידע למסך אליו האינטנט עובר
+        i.putExtra("gameId", gameId);
+        i.putExtra("player", AppConstants.OTHER);
+        i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
+        startActivity(i);
     }
 }
