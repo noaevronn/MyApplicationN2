@@ -45,6 +45,12 @@ public class GameManager implements IGame{
 
 
     }
+
+    // UPDATE TO START GAME
+    // LISTEN FOR CHANGES
+    // UPDATE FB WHEN CIOMPLETED - WITH RESULT - OK OR FAIL
+
+
     @Override
     public void userResult(boolean res)
     {

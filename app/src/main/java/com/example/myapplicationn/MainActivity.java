@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,16 +29,26 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        String gameConfig = getIntent().getStringExtra(AppConstants.GAME_CONFIG);
+        board = new Board(this);
         setContentView(R.layout.activity_main);
-
-        //String action = getIntent().getStringExtra("action");
-        gameID = getIntent().getStringExtra("GameID");
-
-        board = new Board(MainActivity.this);
         linearLayout = (LinearLayout)findViewById(R.id.game);
 
-
-        showGame();
+        //single phone
+        if (gameConfig.equals(AppConstants.ONE_PHONE))
+        {
+            linearLayout.addView(board);
+            GameManager gm = new GameManager(board); // CREATE gm OF ONE PHONE
+        }
+        else //two phones
+        //should be passed to gm
+        //which is created in board game
+        {
+            gameID = getIntent().getStringExtra("gameId"); //doc reference
+            int player = getIntent().getIntExtra("player", 0); //owner
+            showGame();
+        }
     }
 
     private void showGame() {
@@ -48,9 +59,10 @@ public class MainActivity extends AppCompatActivity
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Round r = documentSnapshot.toObject(Round.class);
                 GameManager gm = new GameManager(board,r.getMyGameDeck());
-              //  GameManager gm= new GameManager(board);
                 linearLayout.addView(board);
             }
         });
     }
+
+
 }
