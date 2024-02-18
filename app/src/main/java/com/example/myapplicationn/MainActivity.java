@@ -20,26 +20,28 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements IView
 {
     Board board;
     LinearLayout linearLayout;
     private String gameID;
+
+    GameManager gm;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        String gameConfig = getIntent().getStringExtra(AppConstants.GAME_CONFIG);
+        int gameConfig = getIntent().getIntExtra(AppConstants.GAME_CONFIG,0);
         board = new Board(this);
         setContentView(R.layout.activity_main);
         linearLayout = (LinearLayout)findViewById(R.id.game);
 
         //single phone
-        if (gameConfig.equals(AppConstants.ONE_PHONE))
+        if (gameConfig== AppConstants.ONE_PHONE)
         {
             linearLayout.addView(board);
-            GameManager gm = new GameManager(board); // CREATE gm OF ONE PHONE
+             gm = new GameManager(board); // CREATE gm OF ONE PHONE
         }
         else //two phones
         //should be passed to gm
@@ -47,13 +49,17 @@ public class MainActivity extends AppCompatActivity
         {
             gameID = getIntent().getStringExtra("gameId"); //doc reference
             int player = getIntent().getIntExtra("player", 0); //owner
-            showGame();
+            showGame(gameID,player);
         }
     }
 
-    private void showGame() {
+    private void showGame(String gameID,int player) {
         // 1 get game from firebase
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+         gm = new GameManager(board,gameID,player,this);
+
+        /*
+       FirebaseFirestore fb = FirebaseFirestore.getInstance();
         fb.collection("Rounds").document(gameID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -62,6 +68,19 @@ public class MainActivity extends AppCompatActivity
                 linearLayout.addView(board);
             }
         });
+
+
+         */
+
+
+    }
+
+
+    public void showBoard()
+    {
+        linearLayout.addView(board);
+
+
     }
 
 

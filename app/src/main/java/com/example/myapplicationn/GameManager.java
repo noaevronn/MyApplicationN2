@@ -10,8 +10,11 @@ import java.util.Collections;
 public class GameManager implements IGame{
 
     Board board;
+
+    IView view;
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
+    FBwork fBwork;
     ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
     public GameManager(Board b)
     {
@@ -45,6 +48,32 @@ public class GameManager implements IGame{
 
 
     }
+
+    public GameManager(Board board, String gameID, int player,IView v) {
+
+        this.board = board;
+        this.view = v;
+        fBwork = new FBwork();
+
+        fBwork.setGameManager(this);
+        fBwork.getRound(gameID);
+
+
+    }
+
+    public void roundFromFirebase(ArrayList<Integer> d)
+    {
+        CreateDeck(); //???
+        board.setGameManager(this);
+        Indxs = d;// ???
+
+        board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
+
+        view.showBoard();
+
+    }
+
+
 
     // UPDATE TO START GAME
     // LISTEN FOR CHANGES
@@ -169,5 +198,8 @@ public class GameManager implements IGame{
 
     public void setIndxs(ArrayList<Integer> indxs) {
         Indxs = indxs;
+    }
+
+    public void setGameDeck(ArrayList<Integer> myGameDeck) {
     }
 }

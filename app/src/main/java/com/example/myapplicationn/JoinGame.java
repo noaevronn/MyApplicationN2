@@ -47,6 +47,8 @@ public class JoinGame extends AppCompatActivity {
 
     public void ShareWithFriends(View view) //נפתח מלחיצה על התמונה של השיתוף
     {
+
+
         //אינטנט מרומז
         Intent intent = new Intent(Intent.ACTION_SEND); //אומר שרוצים לשתף מידע
         intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
@@ -62,7 +64,7 @@ public class JoinGame extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Intent i = new Intent(this, MainActivity.class);
-        i.putExtra("gameId: ", gameId);
+        i.putExtra("gameId", gameId);
         i.putExtra("player", AppConstants.HOST);
         i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
         startActivity(i);
@@ -102,20 +104,23 @@ public class JoinGame extends AppCompatActivity {
                         textView.setVisibility(View.INVISIBLE);
                         Button b = findViewById(R.id.buttonJoin);
                         b.setVisibility(View.INVISIBLE);
-
+/*
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // image view has been clicked
                         //        setClickToChat("invited to join my game... Code for the game is:\n" + documentReference.getId());
-                                Log.d("ONSUCCESS", " id " +documentReference.getId());
+                               Log.d("ONSUCCESS", " id " +documentReference.getId());
                                 Intent i = new Intent(JoinGame.this,MainActivity.class);
                                 i.putExtra("GameID",documentReference.getId());
                                 i.putExtra("action","CREATED");
                                 startActivity(i);
 
+
+
                             }
                         });
+*/
 
                     }
                 })
@@ -162,5 +167,7 @@ public class JoinGame extends AppCompatActivity {
         i.putExtra("player", AppConstants.OTHER);
         i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
         startActivity(i);
+
+
     }
 }
