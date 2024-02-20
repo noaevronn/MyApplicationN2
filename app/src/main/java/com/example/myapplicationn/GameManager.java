@@ -15,6 +15,8 @@ public class GameManager implements IGame{
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
     FBwork fBwork;
+
+    String gameId="";
     ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
     public GameManager(Board b)
     {
@@ -53,10 +55,17 @@ public class GameManager implements IGame{
 
         this.board = board;
         this.view = v;
+        this.gameId ="AEj4y1SybgjwvAjmLpCL";// gameID;
         fBwork = new FBwork();
 
+        //if  it is the player that joined - > change status to joined@
+        if(player==AppConstants.OTHER)
+        {
+            fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
+        }
+
         fBwork.setGameManager(this);
-        fBwork.getRound(gameID);
+        fBwork.getRound(gameId);
 
 
     }

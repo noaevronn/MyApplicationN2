@@ -24,9 +24,10 @@ public class FBwork
     private GameManager gameManager;
 
 
+    FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
 
     public void ReadDataFromFB(View view) {
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
         fb.collection("Rounds").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -44,30 +45,10 @@ public class FBwork
                 }
             }
         });
-/*
-        public void listenForChanges()
-        {
-            //1. collection
-            //2. document ref
-            //3. listen
-            //display data - איך מציגים את המידע כשמקבלים אותו
 
-            FirebaseFirestore fb = FirebaseFirestore.getInstance();
-            String docRef = "";
-            fb.collection("Rounds").document(docRef).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                }
-            });
-        }
-
-
- */
     }
         public void getRound(String ref)
         {
-            FirebaseFirestore fb = FirebaseFirestore.getInstance();
             fb.collection("Rounds").document(ref).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -81,6 +62,13 @@ public class FBwork
                 }
             });
 
+        }
+
+
+        public void setGameStatus(String ref,int status)
+        {
+
+            fb.collection("Rounds").document(ref).update("status",status);
         }
 
     public void setGameManager(GameManager gameManager) {

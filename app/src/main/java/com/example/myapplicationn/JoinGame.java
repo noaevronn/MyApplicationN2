@@ -70,6 +70,7 @@ public class JoinGame extends AppCompatActivity {
         startActivity(i);
     }
 
+    /*
     public  void setClickToChat(String message){
         String url = "https://api.whatsapp.com/send";
         try {
@@ -84,6 +85,7 @@ public class JoinGame extends AppCompatActivity {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         }
     }
+    */
 
     private void AddRoundToFb(Round round)
     {
