@@ -1,5 +1,6 @@
 package com.example.myapplicationn;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -59,6 +60,26 @@ public class FBwork
 
                 //    GameManager gm = new GameManager(board,r.getMyGameDeck());
                 //    linearLayout.addView(board);
+                }
+            });
+
+        }
+
+
+        public void handleGame(String gameID)
+        {
+
+            fb.collection("Rounds").document(gameID).addSnapshotListener( new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (value != null && value.exists()) {
+
+                        // value holds Round object
+                        Round round = value.toObject(Round.class);
+
+
+                    }
+
                 }
             });
 

@@ -56,13 +56,13 @@ public class Board extends View
 
             int[] arr1 = userCard.getCard();
             for (int i = 0; i <arr1.length ; i++) {
-                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr1[i]]);
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr1[i]-1]);
                 canvas.drawBitmap(bitmap, AppConstants.arrX[i], AppConstants.arrY1[i], null);
             }
             int[] arr2 = deckCard.getCard();
             for (int i = 0; i <arr2.length ; i++)
             {
-                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr2[i]]);
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr2[i]-1]);
                 canvas.drawBitmap(bitmap, AppConstants.arrX[i], AppConstants.arrY2[i], null);
             }
     }
@@ -121,7 +121,7 @@ public class Board extends View
         {
             int[] arr = userCard.getCard();
             for (int i = 0; i < arr.length; i++) {
-                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]-1]);
 
                 if ((x > AppConstants.arrX[i] && x < (AppConstants.arrX[i] + bitmap.getWidth())) && (y > AppConstants.arrY1[i] && y < (AppConstants.arrY1[i] + bitmap.getHeight())))
                     return i;
@@ -131,7 +131,7 @@ public class Board extends View
         {
             int[] arr = deckCard.getCard();
             for (int i = 0; i < arr.length; i++) {
-                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]]);
+                bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr[i]-1]);
 
                 if ((x > AppConstants.arrX[i] && x < (AppConstants.arrX[i] + bitmap.getWidth())) && (y > AppConstants.arrY2[i] && y < (AppConstants.arrY2[i] + bitmap.getHeight())))
                     return i;

@@ -51,23 +51,21 @@ public class GameManager implements IGame{
 
     }
 
-    public GameManager(Board board, String gameID, int player,IView v) {
+    public GameManager(Board board, String gameID, int player, IView v) {
 
         this.board = board;
         this.view = v;
-        this.gameId ="AEj4y1SybgjwvAjmLpCL";// gameID;
+        this.gameId =gameID;
         fBwork = new FBwork();
+        fBwork.setGameManager(this);
+        fBwork.getRound(gameId);
 
-        //if  it is the player that joined - > change status to joined@
+        //if it is the player that joined - > change status to joined@
+        // listen for changes
         if(player==AppConstants.OTHER)
         {
             fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
         }
-
-        fBwork.setGameManager(this);
-        fBwork.getRound(gameId);
-
-
     }
 
     public void roundFromFirebase(ArrayList<Integer> d)
@@ -79,7 +77,6 @@ public class GameManager implements IGame{
         board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
 
         view.showBoard();
-
     }
 
 

@@ -8,10 +8,15 @@ import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements IView
     LinearLayout linearLayout;
     private String gameID;
     DocumentReference ref;
+
+    PopupWindow popUp;
 
     GameManager gm;
     @Override
@@ -57,7 +64,61 @@ public class MainActivity extends AppCompatActivity implements IView
         }
     }
 
-    private void showGame(String gameID,int player) {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(500);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        View popupView = LayoutInflater.from(MainActivity.this).inflate(R.layout.pop_up_layout, null);
+
+                        // Create the popup window
+                        popUp = new PopupWindow(
+                                popupView,
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                true // Set this to true to allow outside touches to dismiss the popup window
+                        );
+
+
+                        popUp.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+                        /*
+                        View v = findViewById(R.id.popUpView);
+                        LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                        ViewGroup container = (ViewGroup) inflater.inflate(R.layout.pop_up_layout, null);
+                        //   popUp = new PopupWindow(this);
+                        popUp = new PopupWindow(container,200,200,true);
+
+                        popUp.showAtLocation(v, Gravity.NO_GRAVITY, 200, 200);
+
+ */
+                    }
+                });
+
+                //check the status
+                // if created - listen for changes
+                // if joined - count 5 seconds and start the game!
+            }
+        }).start();
+    }
+
+
+
+    private void dismissPopup()
+    {
+        popUp.dismiss();
+
+
+    }
+
+    private void showGame(String gameID, int player) {
         // 1 get game from firebase
          gm = new GameManager(board,gameID,player,this);
     }
@@ -65,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements IView
 
     public void showBoard()
     {
-        linearLayout.addView(board);
+         linearLayout.addView(board);
     }
 
     private void getRoomData()
