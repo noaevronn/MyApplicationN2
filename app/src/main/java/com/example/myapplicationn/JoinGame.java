@@ -106,23 +106,6 @@ public class JoinGame extends AppCompatActivity {
                         textView.setVisibility(View.INVISIBLE);
                         Button b = findViewById(R.id.buttonJoin);
                         b.setVisibility(View.INVISIBLE);
-/*
-                        imageView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // image view has been clicked
-                        //        setClickToChat("invited to join my game... Code for the game is:\n" + documentReference.getId());
-                               Log.d("ONSUCCESS", " id " +documentReference.getId());
-                                Intent i = new Intent(JoinGame.this,MainActivity.class);
-                                i.putExtra("GameID",documentReference.getId());
-                                i.putExtra("action","CREATED");
-                                startActivity(i);
-
-
-
-                            }
-                        });
-*/
 
                     }
                 })

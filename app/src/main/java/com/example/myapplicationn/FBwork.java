@@ -54,15 +54,10 @@ public class FBwork
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Round r = documentSnapshot.toObject(Round.class);
-
                     // let game manager know the round.
                     gameManager.roundFromFirebase(r.getMyGameDeck());
-
-                //    GameManager gm = new GameManager(board,r.getMyGameDeck());
-                //    linearLayout.addView(board);
                 }
             });
-
         }
 
 
@@ -76,19 +71,15 @@ public class FBwork
 
                         // value holds Round object
                         Round round = value.toObject(Round.class);
-
-
+                        //if (round.getStatus() == AppConstants.CREATED
                     }
-
                 }
             });
-
         }
 
 
         public void setGameStatus(String ref,int status)
         {
-
             fb.collection("Rounds").document(ref).update("status",status);
         }
 

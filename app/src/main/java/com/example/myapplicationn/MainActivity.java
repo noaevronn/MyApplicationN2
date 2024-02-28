@@ -89,22 +89,14 @@ public class MainActivity extends AppCompatActivity implements IView
 
 
                         popUp.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-                        /*
-                        View v = findViewById(R.id.popUpView);
-                        LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
-                        ViewGroup container = (ViewGroup) inflater.inflate(R.layout.pop_up_layout, null);
-                        //   popUp = new PopupWindow(this);
-                        popUp = new PopupWindow(container,200,200,true);
 
-                        popUp.showAtLocation(v, Gravity.NO_GRAVITY, 200, 200);
-
- */
                     }
                 });
 
                 //check the status
                 // if created - listen for changes
                 // if joined - count 5 seconds and start the game!
+
             }
         }).start();
     }
