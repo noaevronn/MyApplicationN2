@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class Round
 {
+    int statusP1;
+    int statusP2;
     float time1;
     float time2;
     int status;
@@ -20,10 +22,18 @@ public class Round
     public Round()
     {
         status = AppConstants.CREATED;
-
+        statusP1 = AppConstants.WAIT;
+        statusP2 = AppConstants.WAIT;
     }
 
 
+    public int getStatusP1() {return statusP1;}
+
+    public void setStatusP1(int statusP1) {this.statusP1 = statusP1;}
+
+    public int getStatusP2() {return statusP2;}
+
+    public void setStatusP2(int statusP2) {this.statusP2 = statusP2;}
 
     public float getTime1() {
         return time1;
@@ -49,9 +59,7 @@ public class Round
         this.status = status;
     }
 
-    public ArrayList<Integer> getMyGameDeck() {
-        return myGameDeck;
-    }
+    public ArrayList<Integer> getMyGameDeck() {return myGameDeck;}
 
     public void setMyGameDeck(ArrayList<Integer> myGameDeck) {
         this.myGameDeck = myGameDeck;

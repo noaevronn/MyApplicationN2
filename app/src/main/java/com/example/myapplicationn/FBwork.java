@@ -71,7 +71,17 @@ public class FBwork
 
                         // value holds Round object
                         Round round = value.toObject(Round.class);
-                        //if (round.getStatus() == AppConstants.CREATED
+                        if (round.getStatus() == AppConstants.CREATED)
+                        {
+
+                        }
+                        else if(round.getStatus() == AppConstants.JOINED)
+                        {
+                            // timer for 3 seconds
+                            gameManager.notifyViewGameStarted();
+
+
+                        }
                     }
                 }
             });

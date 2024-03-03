@@ -8,6 +8,7 @@ import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,10 +29,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.units.qual.C;
+
 public class MainActivity extends AppCompatActivity implements IView
 {
     Board board;
     LinearLayout linearLayout;
+
+    TextView counter;
     private String gameID;
     DocumentReference ref;
 
@@ -72,13 +77,14 @@ public class MainActivity extends AppCompatActivity implements IView
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SystemClock.sleep(500);
+                SystemClock.sleep(300);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
                         View popupView = LayoutInflater.from(MainActivity.this).inflate(R.layout.pop_up_layout, null);
 
+                        counter = popupView.findViewById(R.id.textView3);
                         // Create the popup window
                         popUp = new PopupWindow(
                                 popupView,
@@ -86,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements IView
                                 ViewGroup.LayoutParams.MATCH_PARENT,
                                 true // Set this to true to allow outside touches to dismiss the popup window
                         );
+
+                        counter.setText("" + 3);
+
 
 
                         popUp.showAtLocation(popupView, Gravity.CENTER, 0, 0);
@@ -119,6 +128,29 @@ public class MainActivity extends AppCompatActivity implements IView
     public void showBoard()
     {
          linearLayout.addView(board);
+    }
+
+    @Override
+    public void showCounter() {
+
+        CountDownTimer ctd = new CountDownTimer(5000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+              //  int count = Integer.valueOf(counter.getText().toString());
+           //     count--;
+            //   counter.setText("" + count);
+
+                Toast.makeText(MainActivity.this,"counter... ",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFinish() {
+                dismissPopup();
+            }
+        };
+        ctd.start();
+
     }
 
     private void getRoomData()

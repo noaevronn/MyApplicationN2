@@ -15,6 +15,9 @@ public class AppConstants
 
     public static final int CREATED = 1;
     public static  final int JOINED = 2;
+    public static  final int WIN = 1;
+    public static  final int LOST = 2;
+    public static final int WAIT = 0;
 
     public static final String GAME_CONFIG = "GameConfiguration"; //האופי של המשחק (2 טלפונים או אחד)
     public static final int ONE_PHONE = 1;

@@ -60,12 +60,15 @@ public class GameManager implements IGame{
         fBwork.setGameManager(this);
         fBwork.getRound(gameId);
 
+
+
         //if it is the player that joined - > change status to joined@
         // listen for changes
         if(player==AppConstants.OTHER)
         {
             fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
         }
+
     }
 
     public void roundFromFirebase(ArrayList<Integer> d)
@@ -77,6 +80,16 @@ public class GameManager implements IGame{
         board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
 
         view.showBoard();
+
+
+        fBwork.handleGame(gameId);
+
+
+
+
+
+
+
     }
 
 
@@ -93,6 +106,12 @@ public class GameManager implements IGame{
         {
 
         }
+    }
+
+
+    public void notifyViewGameStarted()
+    {
+        view.showCounter();
     }
 
 
