@@ -40,6 +40,7 @@ public class JoinGame extends AppCompatActivity {
         r.setStatus(AppConstants.CREATED);
         r.setTime1(0.0f);
         r.setTime2(0.0f);
+        r.set
         r.setMyGameDeck(gm.getIndxs());
         AddRoundToFb(r);
 

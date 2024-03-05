@@ -73,6 +73,8 @@ public class FBwork
                         Round round = value.toObject(Round.class);
                         if (round.getStatus() == AppConstants.CREATED)
                         {
+                         //   if(AppConstants.currentPlayer==AppConstants.OTHER)
+
 
                         }
                         else if(round.getStatus() == AppConstants.JOINED)

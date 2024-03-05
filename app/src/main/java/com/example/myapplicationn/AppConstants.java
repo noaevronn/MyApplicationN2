@@ -24,4 +24,10 @@ public class AppConstants
     public static final int TWO_PHONES = 2;
     public static final int HOST = 1;
     public static final int OTHER = 2;
+
+
+    public static long startTime = 0;
+    public static long endTime = 0;
+
+    public static int currentPlayer = HOST;
 }

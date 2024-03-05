@@ -1,5 +1,6 @@
 package com.example.myapplicationn;
 
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.google.firestore.admin.v1.Index;
@@ -37,19 +38,6 @@ public class GameManager implements IGame{
     // status??
     // listen
     // set - update
-    public GameManager(Board b,ArrayList<Integer> d)
-    {
-        board = b;
-        CreateDeck();
-        b.setGameManager(this);
-        Indxs = d;// ???
-
-        board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
-
-
-
-
-    }
 
     public GameManager(Board board, String gameID, int player, IView v) {
 
@@ -84,26 +72,30 @@ public class GameManager implements IGame{
 
         fBwork.handleGame(gameId);
 
-
-
-
-
-
-
     }
-
-
-
-    // UPDATE TO START GAME
-    // LISTEN FOR CHANGES
-    // UPDATE FB WHEN CIOMPLETED - WITH RESULT - OK OR FAIL
 
 
     @Override
     public void userResult(boolean res)
     {
+        //if true - check time
+        //if false - check other choice
+
         if (res == true)
         {
+            AppConstants.endTime  = System.currentTimeMillis();
+
+            int totalTime = (int)(AppConstants.endTime-AppConstants.startTime);
+            // we have time
+            // we have result
+            // update FB with status and time
+
+
+
+
+
+
+
 
         }
     }

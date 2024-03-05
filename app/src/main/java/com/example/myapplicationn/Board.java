@@ -65,6 +65,11 @@ public class Board extends View
                 bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr2[i]-1]);
                 canvas.drawBitmap(bitmap, AppConstants.arrX[i], AppConstants.arrY2[i], null);
             }
+
+
+            //START TIME...
+            AppConstants.startTime = System.currentTimeMillis();
+
     }
 
     @Override

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements IView
                                 true // Set this to true to allow outside touches to dismiss the popup window
                         );
 
-                        counter.setText("" + 3);
+                        counter.setText("" + 5);
 
 
 
@@ -102,9 +102,6 @@ public class MainActivity extends AppCompatActivity implements IView
                     }
                 });
 
-                //check the status
-                // if created - listen for changes
-                // if joined - count 5 seconds and start the game!
 
             }
         }).start();
@@ -135,22 +132,16 @@ public class MainActivity extends AppCompatActivity implements IView
 
         CountDownTimer ctd = new CountDownTimer(5000,1000) {
             @Override
-            public void onTick(long millisUntilFinished) {
-              //  int count = Integer.valueOf(counter.getText().toString());
-           //     count--;
-            //   counter.setText("" + count);
-
+            public void onTick(long millisUntilFinished)
+            {
                 Toast.makeText(MainActivity.this,"counter... ",Toast.LENGTH_SHORT).show();
-
             }
-
             @Override
             public void onFinish() {
                 dismissPopup();
             }
         };
         ctd.start();
-
     }
 
     private void getRoomData()
