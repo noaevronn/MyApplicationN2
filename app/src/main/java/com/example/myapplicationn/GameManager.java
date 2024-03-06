@@ -12,6 +12,8 @@ public class GameManager implements IGame{
 
     Board board;
 
+    private Round currentRound=null;
+
     IView view;
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
@@ -31,7 +33,6 @@ public class GameManager implements IGame{
         }
         Collections.shuffle(Indxs);
     }
-
 
     // turns
     // time
@@ -59,7 +60,7 @@ public class GameManager implements IGame{
 
     }
 
-    public void roundFromFirebase(ArrayList<Integer> d)
+    public void roundFromFirebase(ArrayList<Integer> d,Round r)
     {
         CreateDeck(); //???
         board.setGameManager(this);
@@ -69,7 +70,7 @@ public class GameManager implements IGame{
 
         view.showBoard();
 
-
+        this.currentRound = r;
         fBwork.handleGame(gameId);
 
     }
@@ -88,15 +89,33 @@ public class GameManager implements IGame{
             int totalTime = (int)(AppConstants.endTime-AppConstants.startTime);
             // we have time
             // we have result
-            // update FB with status and time
+            // check if host or other
+            // set FB with status and time
 
-
-
-
-
-
-
-
+            if (AppConstants.currentPlayer == AppConstants.HOST)
+            {
+                currentRound.setTime1(totalTime);
+                currentRound.setStatusP1(AppConstants.WIN);
+                fBwork.setRound(currentRound,gameId);
+            }
+            else
+            {
+                currentRound.setTime2(totalTime);
+                currentRound.setStatusP2(AppConstants.WIN);
+            }
+        }
+        else
+        {
+            if (AppConstants.currentPlayer == AppConstants.HOST)
+            {
+                //currentRound.setTime1(totalTime);
+                currentRound.setStatusP1(AppConstants.WIN);
+            }
+            else
+            {
+                //currentRound.setTime2(totalTime);
+                currentRound.setStatusP2(AppConstants.WIN);
+            }
         }
     }
 

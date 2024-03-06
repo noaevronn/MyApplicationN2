@@ -55,7 +55,7 @@ public class FBwork
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Round r = documentSnapshot.toObject(Round.class);
                     // let game manager know the round.
-                    gameManager.roundFromFirebase(r.getMyGameDeck());
+                    gameManager.roundFromFirebase(r.getMyGameDeck(),r);
                 }
             });
         }
@@ -98,6 +98,11 @@ public class FBwork
     public void setGameManager(GameManager gameManager) {
 
         this.gameManager = gameManager;
+    }
+
+    public void setRound(Round currentRound, String gameId) {
+
+        fb.collection("Rounds").document(gameId).set(currentRound);
     }
 
 

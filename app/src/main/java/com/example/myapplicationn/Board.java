@@ -86,7 +86,8 @@ public class Board extends View
             // check which image
             int i = findClickedImage(x,y, num);
             Log.d("ON TOUCH ", "onTouchEvent: " + i );
-            if (i != -1) {
+            if (i != -1)
+            {
                 boolean res = CheckIfTrue(i, num);
                 gameManager.userResult(res);
             }
