@@ -48,7 +48,7 @@ public class Registry extends AppCompatActivity
                           if (task.isSuccessful() == true)
                           {
                               Toast.makeText(Registry.this, "Registry Success", Toast.LENGTH_LONG).show();
-                              Intent intent = new Intent(Registry.this, MainActivity.class);
+                              Intent intent = new Intent(Registry.this, JoinGame.class);
                               startActivity(intent);
                           }
                           else

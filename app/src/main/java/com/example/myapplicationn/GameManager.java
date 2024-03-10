@@ -82,16 +82,16 @@ public class GameManager implements IGame{
         //if true - check time
         //if false - check other choice
 
+        AppConstants.endTime  = System.currentTimeMillis();
+
+        int totalTime = (int)(AppConstants.endTime-AppConstants.startTime);
+        // we have time
+        // we have result
+
         if (res == true)
         {
-            AppConstants.endTime  = System.currentTimeMillis();
-
-            int totalTime = (int)(AppConstants.endTime-AppConstants.startTime);
-            // we have time
-            // we have result
             // check if host or other
             // set FB with status and time
-
             if (AppConstants.currentPlayer == AppConstants.HOST)
             {
                 currentRound.setTime1(totalTime);
@@ -102,22 +102,29 @@ public class GameManager implements IGame{
             {
                 currentRound.setTime2(totalTime);
                 currentRound.setStatusP2(AppConstants.WIN);
+                fBwork.setRound(currentRound,gameId);
+
             }
         }
         else
         {
             if (AppConstants.currentPlayer == AppConstants.HOST)
             {
-                //currentRound.setTime1(totalTime);
-                currentRound.setStatusP1(AppConstants.WIN);
+                currentRound.setTime1(totalTime);
+                currentRound.setStatusP1(AppConstants.LOST);
+                fBwork.setRound(currentRound,gameId);
+
             }
             else
             {
-                //currentRound.setTime2(totalTime);
-                currentRound.setStatusP2(AppConstants.WIN);
+                currentRound.setTime2(totalTime);
+                currentRound.setStatusP2(AppConstants.LOST);
+                fBwork.setRound(currentRound,gameId);
+
             }
         }
     }
+
 
 
     public void notifyViewGameStarted()
