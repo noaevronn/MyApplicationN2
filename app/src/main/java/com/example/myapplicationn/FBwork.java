@@ -71,17 +71,26 @@ public class FBwork
 
                         // value holds Round object
                         Round round = value.toObject(Round.class);
-                        if (round.getStatus() == AppConstants.CREATED)
-                        {
-                         //   if(AppConstants.currentPlayer==AppConstants.OTHER)
-
-
-                        }
-                        else if(round.getStatus() == AppConstants.JOINED)
+                        if(round.getStatus() == AppConstants.JOINED)
                         {
                             // timer for 3 seconds
+                            round.setStatus(AppConstants.STARTED);
                             gameManager.notifyViewGameStarted();
-
+                        }
+                        //מאזין אם אחד השחקנים לחץ על אחד הקלפים
+                        if (round.getStatusP1() != 0)
+                        {
+                            if (round.getStatusP1() == 1)
+                            {
+                                //תציג הודעה שהשחקן שהוא HOST ניצח בסיבוב הזה
+                            }
+                            else
+                            {
+                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                            }
+                        }
+                        else if (round.getStatusP2() != 0)
+                        {
 
                         }
                     }

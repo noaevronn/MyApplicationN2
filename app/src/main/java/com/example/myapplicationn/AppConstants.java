@@ -15,6 +15,7 @@ public class AppConstants
 
     public static final int CREATED = 1;
     public static  final int JOINED = 2;
+    public  static final  int STARTED = 3;
     public static  final int WIN = 1;
     public static  final int LOST = 2;
     public static final int WAIT = 0;
