@@ -49,8 +49,6 @@ public class GameManager implements IGame{
         fBwork.setGameManager(this);
         fBwork.getRound(gameId);
 
-
-
         //if it is the player that joined - > change status to joined@
         // listen for changes
         if(player==AppConstants.OTHER)
@@ -66,7 +64,7 @@ public class GameManager implements IGame{
         board.setGameManager(this);
         Indxs = d;// ???
 
-        board.makeTurn(deck.get(Indxs.get(0)), deck.get(Indxs.get(1)));
+        board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
 
         view.showBoard();
 
@@ -120,9 +118,12 @@ public class GameManager implements IGame{
                 currentRound.setTime2(totalTime);
                 currentRound.setStatusP2(AppConstants.LOST);
                 fBwork.setRound(currentRound,gameId);
-
             }
         }
+        currentCard = currentCard + 2;
+
+        //DEBUG ONLY!!!
+        board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
     }
 
 
@@ -169,6 +170,7 @@ public class GameManager implements IGame{
                 deck.add(card);
             }
         }
+        CheckDeck();
     }
 
     public boolean CheckDeck()
@@ -211,6 +213,8 @@ public class GameManager implements IGame{
         return count;
     }
 
+
+
     public Board getBoard() {
         return board;
     }
@@ -244,5 +248,10 @@ public class GameManager implements IGame{
     }
 
     public void setGameDeck(ArrayList<Integer> myGameDeck) {
+    }
+
+    public void ChangeCards()
+    {
+
     }
 }

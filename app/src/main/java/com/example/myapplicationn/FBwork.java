@@ -27,7 +27,7 @@ public class FBwork
 
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
-
+/*
     public void ReadDataFromFB(View view) {
 
         fb.collection("Rounds").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -48,6 +48,8 @@ public class FBwork
         });
 
     }
+
+ */
         public void getRound(String ref)
         {
             fb.collection("Rounds").document(ref).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -91,9 +93,17 @@ public class FBwork
                         }
                         else if (round.getStatusP2() != 0)
                         {
-
+                            if (round.getStatusP2() == 1)
+                            {
+                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                            }
+                            else
+                            {
+                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                            }
                         }
                     }
+                    gameManager.ChangeCards();
                 }
             });
         }
