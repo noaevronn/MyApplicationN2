@@ -120,10 +120,9 @@ public class GameManager implements IGame{
                 fBwork.setRound(currentRound,gameId);
             }
         }
-        currentCard = currentCard + 2;
 
         //DEBUG ONLY!!!
-        board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
+       // board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
     }
 
 
@@ -252,6 +251,7 @@ public class GameManager implements IGame{
 
     public void ChangeCards()
     {
-
+        currentCard = currentCard + 2;
+        board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
     }
 }

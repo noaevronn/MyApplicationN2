@@ -23,6 +23,7 @@ public class FBwork
 {
 
     private GameManager gameManager;
+    private boolean listening = false;
 
 
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
@@ -63,49 +64,51 @@ public class FBwork
         }
 
 
+
         public void handleGame(String gameID)
         {
+            if(!listening) {
+                listening = true;
 
-            fb.collection("Rounds").document(gameID).addSnapshotListener( new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (value != null && value.exists()) {
 
-                        // value holds Round object
-                        Round round = value.toObject(Round.class);
-                        if(round.getStatus() == AppConstants.JOINED)
-                        {
-                            // timer for 3 seconds
-                            round.setStatus(AppConstants.STARTED);
-                            gameManager.notifyViewGameStarted();
+                fb.collection("Rounds").document(gameID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (value != null && value.exists()) {
+
+                            // value holds Round object
+                            Round round = value.toObject(Round.class);
+                            if (round.getStatus() == AppConstants.CREATED)
+                            {return;}
+
+                            if (round.getStatus() == AppConstants.JOINED) {
+                                gameManager.notifyViewGameStarted();
+                                if(AppConstants.currentPlayer==AppConstants.HOST)
+                                // timer for 3 seconds
+                                 //   round.setStatus(AppConstants.STARTED);
+                                    setGameStatus(gameID,AppConstants.STARTED);
+
+                                return;
+                            }
+                            //מאזין אם אחד השחקנים לחץ על אחד הקלפים
+                            if (round.getStatusP1() != 0) {
+                                if (round.getStatusP1() == 1) {
+                                    //תציג הודעה שהשחקן שהוא HOST ניצח בסיבוב הזה
+                                } else {
+                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                }
+                            } else if (round.getStatusP2() != 0) {
+                                if (round.getStatusP2() == 1) {
+                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                } else {
+                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                }
+                            }
                         }
-                        //מאזין אם אחד השחקנים לחץ על אחד הקלפים
-                        if (round.getStatusP1() != 0)
-                        {
-                            if (round.getStatusP1() == 1)
-                            {
-                                //תציג הודעה שהשחקן שהוא HOST ניצח בסיבוב הזה
-                            }
-                            else
-                            {
-                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
-                            }
-                        }
-                        else if (round.getStatusP2() != 0)
-                        {
-                            if (round.getStatusP2() == 1)
-                            {
-                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
-                            }
-                            else
-                            {
-                                //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
-                            }
-                        }
+                        gameManager.ChangeCards();
                     }
-                    gameManager.ChangeCards();
-                }
-            });
+                });
+            }
         }
 
 

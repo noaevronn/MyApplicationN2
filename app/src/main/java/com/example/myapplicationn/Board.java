@@ -14,7 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Board extends View
+public class
+Board extends View
 {
     Context context;
     Bitmap bitmap;

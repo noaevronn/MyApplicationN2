@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements IView
     DocumentReference ref;
 
     PopupWindow popUp;
+    int player;
 
     GameManager gm;
     @Override
@@ -64,14 +65,15 @@ public class MainActivity extends AppCompatActivity implements IView
         //which is created in board game
         {
             gameID = getIntent().getStringExtra("gameId"); //doc reference
-            int player = getIntent().getIntExtra("player", 0); //owner
+            player = getIntent().getIntExtra("player", 0); //host or other
+            AppConstants.currentPlayer=player;
             showGame(gameID,player);
         }
     }
 
 
     @Override
-    protected void onResume() {
+    protected void onResume() { //shows the popup
         super.onResume();
 
         new Thread(new Runnable() {
@@ -146,18 +148,19 @@ public class MainActivity extends AppCompatActivity implements IView
 
     private void getRoomData()
     {
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+       ref=  fb.collection("Rounds").document(gameID);
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task)
             {
-                if (task .isSuccessful())
+                if (task.isSuccessful())
                 {
                     Round round = (task.getResult().toObject(Round.class));
                     if (round.getStatus() == AppConstants.CREATED)
                     {
                         round.setStatus(AppConstants.JOINED);
                         //after the first player will do the first action the status will be changed
-
                     }
                 }
                 else
