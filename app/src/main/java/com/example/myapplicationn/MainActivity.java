@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements IView
         if (gameConfig== AppConstants.ONE_PHONE)
         {
             linearLayout.addView(board);
-             gm = new GameManager(board); // CREATE gm OF ONE PHONE
+            gm = new GameManager(board); // CREATE gm OF ONE PHONE
+            dismissPopup();
         }
         else //two phones
         //should be passed to gm
@@ -96,15 +97,10 @@ public class MainActivity extends AppCompatActivity implements IView
                         );
 
                         counter.setText("" + 5);
-
-
-
                         popUp.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
                     }
                 });
-
-
             }
         }).start();
     }
@@ -114,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements IView
     private void dismissPopup()
     {
         popUp.dismiss();
-
-
     }
 
     private void showGame(String gameID, int player) {
@@ -145,32 +139,5 @@ public class MainActivity extends AppCompatActivity implements IView
         };
         ctd.start();
     }
-
-    private void getRoomData()
-    {
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
-       ref=  fb.collection("Rounds").document(gameID);
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task)
-            {
-                if (task.isSuccessful())
-                {
-                    Round round = (task.getResult().toObject(Round.class));
-                    if (round.getStatus() == AppConstants.CREATED)
-                    {
-                        round.setStatus(AppConstants.JOINED);
-                        //after the first player will do the first action the status will be changed
-                    }
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Not Succeeded", Toast.LENGTH_LONG).show();
-                    MainActivity.this.finish();
-                }
-            }
-        });
-    }
-
 
 }

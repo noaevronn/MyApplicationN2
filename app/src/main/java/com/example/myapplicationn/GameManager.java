@@ -21,7 +21,7 @@ public class GameManager implements IGame{
 
     String gameId="";
     ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
-    public GameManager(Board b)
+    public GameManager(Board b) //one player - practice
     {
         board = b;
         CreateDeck();
@@ -34,14 +34,9 @@ public class GameManager implements IGame{
         Collections.shuffle(Indxs);
     }
 
-    // turns
-    // time
-    // status??
-    // listen
-    // set - update
 
-    public GameManager(Board board, String gameID, int player, IView v) {
-
+    public GameManager(Board board, String gameID, int player, IView v) //two players
+    {
         this.board = board;
         this.view = v;
         this.gameId =gameID;
@@ -55,7 +50,6 @@ public class GameManager implements IGame{
         {
             fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
         }
-
     }
 
     public void roundFromFirebase(ArrayList<Integer> d,Round r)
@@ -211,8 +205,6 @@ public class GameManager implements IGame{
 
         return count;
     }
-
-
 
     public Board getBoard() {
         return board;

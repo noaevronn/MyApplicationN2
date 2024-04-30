@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,10 +31,25 @@ Board extends View
     public Board(Context context)
     {
         super(context);
+
+        initBoard(context);
+
         circle1 = new MyCircle(AppConstants.X, AppConstants.Y1 ,AppConstants.RADIUS);
         circle2 = new MyCircle(AppConstants.X, AppConstants.Y2 ,AppConstants.RADIUS);
         this.context = context;
         bitmaps = new int[]{R.drawable.airplane, R.drawable.artistpalette, R.drawable.ballet, R.drawable.bathtub, R.drawable.batman,R.drawable.bomb, R.drawable.bowling, R.drawable.bubbles, R.drawable.camera, R.drawable.cheese, R.drawable.coral, R.drawable.corn, R.drawable.cyclone, R.drawable.doughnut, R.drawable.dragonface, R.drawable.firecracker,R.drawable.fleurdelis,R.drawable.footprint, R.drawable.gloves, R.drawable.grinch, R.drawable.hat, R.drawable.infinity, R.drawable.jackolantern, R.drawable.jerry, R.drawable.joker, R.drawable.key, R.drawable.kite, R.drawable.locked, R.drawable.luggage, R.drawable.medal, R.drawable.microphone, R.drawable.money, R.drawable.moon, R.drawable.mountain, R.drawable.mushroom, R.drawable.nazaramulet, R.drawable.pistol, R.drawable.rocket, R.drawable.sandal, R.drawable.saxophone, R.drawable.shopping, R.drawable.smurf, R.drawable.snowflake, R.drawable.snowman, R.drawable.spider, R.drawable.sunglasses, R.drawable.tent, R.drawable.theflash, R.drawable.tiger, R.drawable.tower, R.drawable.truck, R.drawable.tulip, R.drawable.umbrella, R.drawable.volcano, R.drawable.waterwave, R.drawable.wedding, R.drawable.yoyo};
+    }
+
+    private void initBoard(Context context) {
+        DisplayMetrics dm =getResources().getDisplayMetrics();
+        AppConstants.X = dm.widthPixels/2;
+        AppConstants.Y1 = dm.heightPixels/4;
+        AppConstants.Y2 = dm.heightPixels/2 + dm.heightPixels/4;
+        AppConstants.RADIUS = dm.heightPixels/6;
+        AppConstants.arrX =new float[] {AppConstants.X, (float) (AppConstants.X - 0.7*AppConstants.RADIUS), (float) ((AppConstants.X - AppConstants.RADIUS) + (0.1 * AppConstants.RADIUS)), (float) (AppConstants.X - 0.5*AppConstants.RADIUS), AppConstants.X, (float) (AppConstants.X + 0.5 * AppConstants.RADIUS), (float) ((AppConstants.X + AppConstants.RADIUS) - (0.3 * AppConstants.RADIUS)), (float) (AppConstants.X + 0.5*AppConstants.RADIUS)};
+        AppConstants.arrY1 = new float[] {(float) ((AppConstants.Y1 - AppConstants.RADIUS) + (0.1*AppConstants.RADIUS)), (float) (AppConstants.Y1-0.6*AppConstants.RADIUS), AppConstants.Y1, (float) (AppConstants.Y1+ 0.6*AppConstants.RADIUS), (float) ((AppConstants.Y1 + AppConstants.RADIUS) - (0.3*AppConstants.RADIUS)), (float) (AppConstants.Y1+ 0.5*AppConstants.RADIUS), AppConstants.Y1, (float) (AppConstants.Y1 - 0.7*AppConstants.RADIUS)};
+        AppConstants.arrY2 = new float[] {(float) ((AppConstants.Y2 - AppConstants.RADIUS) + (0.1*AppConstants.RADIUS)), (float) (AppConstants.Y2-0.6*AppConstants.RADIUS), AppConstants.Y2, (float) (AppConstants.Y2+ 0.6*AppConstants.RADIUS), (float) ((AppConstants.Y2 + AppConstants.RADIUS) - (0.3*AppConstants.RADIUS)), (float) (AppConstants.Y2+ 0.5*AppConstants.RADIUS), AppConstants.Y2, (float) (AppConstants.Y2 - 0.7*AppConstants.RADIUS)};
+
     }
 
     public void makeTurn(Card c1,Card c2)

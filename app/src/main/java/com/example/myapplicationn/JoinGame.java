@@ -47,8 +47,6 @@ public class JoinGame extends AppCompatActivity {
 
     public void ShareWithFriends(View view) //נפתח מלחיצה על התמונה של השיתוף
     {
-
-
         //אינטנט מרומז
         Intent intent = new Intent(Intent.ACTION_SEND); //אומר שרוצים לשתף מידע
         intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
@@ -70,22 +68,6 @@ public class JoinGame extends AppCompatActivity {
         startActivity(i);
     }
 
-    /*
-    public  void setClickToChat(String message){
-        String url = "https://api.whatsapp.com/send";
-        try {
-            PackageManager pm = this.getPackageManager();
-            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            i.putExtra(Intent.EXTRA_TEXT, message);
-
-            startActivity(i);
-        } catch (PackageManager.NameNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-        }
-    }
-    */
 
     private void AddRoundToFb(Round round)
     {
