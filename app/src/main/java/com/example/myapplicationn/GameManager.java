@@ -14,6 +14,7 @@ public class GameManager implements IGame{
 
     private Round currentRound=null;
 
+    private int thisPlayer=0;
     IView view;
     ArrayList<Card> deck = new ArrayList<>();
     int currentCard = 0;
@@ -35,6 +36,7 @@ public class GameManager implements IGame{
     }
 
 
+
     public GameManager(Board board, String gameID, int player, IView v) //two players
     {
         this.board = board;
@@ -42,18 +44,24 @@ public class GameManager implements IGame{
         this.gameId =gameID;
         fBwork = new FBwork();
         fBwork.setGameManager(this);
-        fBwork.getRound(gameId);
+
+        thisPlayer = player;
 
         //if it is the player that joined - > change status to joined@
         // listen for changes
-        if(player==AppConstants.OTHER)
-        {
-            fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
-        }
+
+        fBwork.getRound(gameId);
+
+
     }
 
     public void roundFromFirebase(ArrayList<Integer> d,Round r)
     {
+        if(thisPlayer==AppConstants.OTHER)
+        {
+            fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
+        }
+
         CreateDeck(); //???
         board.setGameManager(this);
         Indxs = d;// ???
@@ -88,14 +96,15 @@ public class GameManager implements IGame{
             {
                 currentRound.setTime1(totalTime);
                 currentRound.setStatusP1(AppConstants.WIN);
-                fBwork.setRound(currentRound,gameId);
+              //  fBwork.setRound(currentRound,gameId);
+                fBwork.updateRound(currentRound,gameId,thisPlayer);
             }
             else
             {
                 currentRound.setTime2(totalTime);
                 currentRound.setStatusP2(AppConstants.WIN);
-                fBwork.setRound(currentRound,gameId);
-
+               // fBwork.setRound(currentRound,gameId);
+                fBwork.updateRound(currentRound,gameId, thisPlayer);
             }
         }
         else
@@ -104,14 +113,16 @@ public class GameManager implements IGame{
             {
                 currentRound.setTime1(totalTime);
                 currentRound.setStatusP1(AppConstants.LOST);
-                fBwork.setRound(currentRound,gameId);
+                //fBwork.setRound(currentRound,gameId);
+                fBwork.updateRound(currentRound,gameId, thisPlayer);
 
             }
             else
             {
                 currentRound.setTime2(totalTime);
                 currentRound.setStatusP2(AppConstants.LOST);
-                fBwork.setRound(currentRound,gameId);
+                //fBwork.setRound(currentRound,gameId);
+                fBwork.updateRound(currentRound,gameId, thisPlayer);
             }
         }
 

@@ -78,8 +78,14 @@ public class FBwork
 
                             // value holds Round object
                             Round round = value.toObject(Round.class);
+
+
                             if (round.getStatus() == AppConstants.CREATED)
-                            {return;}
+                            {
+
+
+                                return;
+                            }
 
                             if (round.getStatus() == AppConstants.JOINED) {
                                 gameManager.notifyViewGameStarted();
@@ -104,8 +110,9 @@ public class FBwork
                                     //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
                                 }
                             }
+                            if (round.getStatus() == AppConstants.STARTED) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
+                                gameManager.ChangeCards();
                         }
-                        gameManager.ChangeCards();
                     }
                 });
             }
@@ -125,6 +132,20 @@ public class FBwork
     public void setRound(Round currentRound, String gameId) {
 
         fb.collection("Rounds").document(gameId).set(currentRound);
+    }
+
+    public void updateRound(Round currentRound, String gameId, int player)
+    {
+        if (player == AppConstants.HOST)
+        {
+            fb.collection("Rounds").document(gameId).update("time1",currentRound.time1);
+            fb.collection("Rounds").document(gameId).update("statusP1",currentRound.statusP1);
+        }
+        else
+        {
+            fb.collection("Rounds").document(gameId).update("time2",currentRound.time2);
+            fb.collection("Rounds").document(gameId).update("statusP2",currentRound.statusP2);
+        }
     }
 
 
