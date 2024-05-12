@@ -252,9 +252,16 @@ public class GameManager implements IGame{
     public void setGameDeck(ArrayList<Integer> myGameDeck) {
     }
 
+    //מחליף קלפים
+    //מאפס את הסטטוסים והזמנים של השחקנים בפיירבייס
     public void ChangeCards()
     {
         currentCard = currentCard + 2;
         board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
+        currentRound.setTime1(0);
+        currentRound.setStatusP1(AppConstants.WAIT);
+        currentRound.setTime2(0);
+        currentRound.setStatusP2(AppConstants.WAIT);
+        fBwork.updateRound(currentRound,gameId, thisPlayer);
     }
 }

@@ -65,6 +65,10 @@ Board extends View
         {
         super.onDraw(canvas);
 
+
+        //
+
+
         if(userCard == null || deckCard ==null)
             return;
 
@@ -82,6 +86,13 @@ Board extends View
                 bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[arr2[i]-1]);
                 canvas.drawBitmap(bitmap, AppConstants.arrX[i], AppConstants.arrY2[i], null);
             }
+
+            Paint p = new Paint();
+            p.setColor(Color.WHITE);
+
+            p.setTextSize(80);
+            canvas.drawText("My Card's number: "+AppConstants.cardCounter,100,100,p);//
+
 
 
             //START TIME...

@@ -1,5 +1,8 @@
 package com.example.myapplicationn;
 
+import static com.example.myapplicationn.AppConstants.cardCounter;
+import static com.example.myapplicationn.AppConstants.currentPlayer;
+
 import android.app.Activity;
 import android.view.View;
 import android.widget.Toast;
@@ -28,29 +31,7 @@ public class FBwork
 
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
-/*
-    public void ReadDataFromFB(View view) {
 
-        fb.collection("Rounds").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    ArrayList<Round> rounds = new ArrayList<>();
-
-                    //task.getResult() -> collection of documents
-                    for (QueryDocumentSnapshot snapshot : task.getResult()) //עבור כל מסמך מקבלים את התוכן שלו ועוברים אחד אחד ומכניסים אותו לתוך מערך
-                    {
-                        rounds.add(snapshot.toObject(Round.class)); // ממיר את התוכן לראונד
-                    }
-
-                    //rounds -> מערך שמכיל את כל הראונדים
-                }
-            }
-        });
-
-    }
-
- */
         public void getRound(String ref)
         {
             fb.collection("Rounds").document(ref).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -82,11 +63,8 @@ public class FBwork
 
                             if (round.getStatus() == AppConstants.CREATED)
                             {
-
-
                                 return;
                             }
-
                             if (round.getStatus() == AppConstants.JOINED) {
                                 gameManager.notifyViewGameStarted();
                                 if(AppConstants.currentPlayer==AppConstants.HOST)
@@ -100,16 +78,42 @@ public class FBwork
                             if (round.getStatusP1() != 0) {
                                 if (round.getStatusP1() == 1) {
                                     //תציג הודעה שהשחקן שהוא HOST ניצח בסיבוב הזה
-                                } else {
-                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                    if (currentPlayer == AppConstants.HOST)
+                                        cardCounter++;
+                                    else
+                                        cardCounter--;
+                                }
+                                else
+                                {
+                                    if (currentPlayer == AppConstants.HOST)
+                                        cardCounter--;
+                                    else
+                                        cardCounter++;
                                 }
                             } else if (round.getStatusP2() != 0) {
                                 if (round.getStatusP2() == 1) {
                                     //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                    if (currentPlayer == AppConstants.OTHER)
+                                        cardCounter++;
+                                    else
+                                        cardCounter--;
                                 } else {
                                     //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                    if (currentPlayer == AppConstants.OTHER)
+                                        cardCounter--;
+                                    else
+                                        cardCounter++;
                                 }
                             }
+
+                            if (cardCounter == 0)
+                            {
+                                if (AppConstants.currentPlayer == AppConstants.HOST)
+                                    setGameStatus(gameID,AppConstants.WINP2);
+                                else
+                                    setGameStatus(gameID,AppConstants.WINP1);
+                            }
+
                             if (round.getStatus() == AppConstants.STARTED) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
                                 gameManager.ChangeCards();
                         }
@@ -127,6 +131,10 @@ public class FBwork
     public void setGameManager(GameManager gameManager) {
 
         this.gameManager = gameManager;
+
+        //
+
+        cardCounter=10;
     }
 
     public void setRound(Round currentRound, String gameId) {
