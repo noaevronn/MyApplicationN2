@@ -1,8 +1,10 @@
 package com.example.myapplicationn;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
@@ -138,6 +140,41 @@ public class MainActivity extends AppCompatActivity implements IView
             }
         };
         ctd.start();
+    }
+
+    @Override
+    public void displayGameOver(int res) {
+
+        String message = " YOU  WIN";
+        if(res==0)
+            message="YOU LOST ";
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        // Set the message show for the Alert time
+        builder.setMessage("click here to exit");
+
+        // Set Alert Title
+        builder.setTitle("GAME OVER ! " + message);
+
+        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+        builder.setCancelable(false);
+
+        // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setPositiveButton("EXIT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+
+                finish();
+            }
+        });
+
+
+        // Create the Alert dialog
+        AlertDialog alertDialog = builder.create();
+        // Show the Alert Dialog box
+        alertDialog.show();
     }
 
 }

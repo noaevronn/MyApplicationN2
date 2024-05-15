@@ -9,8 +9,8 @@ public class AppConstants
     public static float Y2 = 1650;
 
     public static float[] arrX;
-    public static  float[] arrY1;// =
-    public static  float[] arrY2;  //{(float) ((Y2 - RADIUS) + (0.1*RADIUS)), (float) (Y2-0.6*RADIUS), Y2, (float) (Y2+ 0.6*RADIUS), (float) ((Y2 + RADIUS) - (0.3*RADIUS)), (float) (Y2+ 0.5*RADIUS), Y2, (float) (Y2 - 0.7*RADIUS)};
+    public static  float[] arrY1;
+    public static  float[] arrY2;
 
 
     public static final int CREATED = 1;
@@ -22,6 +22,7 @@ public class AppConstants
     public static  final int WIN = 1;
     public static  final int LOST = 2;
     public static final int WAIT = 0;
+    public static final int LENGTH = 56;
 
     public static int cardCounter = 10;
 

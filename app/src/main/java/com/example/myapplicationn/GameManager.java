@@ -55,6 +55,11 @@ public class GameManager implements IGame{
 
     }
 
+    public IView getView()
+    {
+        return this.view;
+    }
+
     public void roundFromFirebase(ArrayList<Integer> d,Round r)
     {
         if(thisPlayer==AppConstants.OTHER)
@@ -217,6 +222,32 @@ public class GameManager implements IGame{
         return count;
     }
 
+    //מחליף קלפים
+    //מאפס את הסטטוסים והזמנים של השחקנים בפיירבייס
+    public void ChangeCards()
+    {
+        if (AppConstants.LENGTH - 2 == currentCard)
+        {
+            currentCard = 0;
+            board.makeTurn(deck.get(Indxs.get(AppConstants.LENGTH)), deck.get(Indxs.get(currentCard)));
+        }
+        else if (AppConstants.LENGTH - 1 == currentCard)
+        {
+            board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(0)));
+            currentCard = 1;
+        }
+        else
+        {
+            currentCard = currentCard + 2;
+            board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
+        }
+        currentRound.setTime1(0);
+        currentRound.setStatusP1(AppConstants.WAIT);
+        currentRound.setTime2(0);
+        currentRound.setStatusP2(AppConstants.WAIT);
+        fBwork.updateRound(currentRound,gameId, thisPlayer);
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -252,16 +283,11 @@ public class GameManager implements IGame{
     public void setGameDeck(ArrayList<Integer> myGameDeck) {
     }
 
-    //מחליף קלפים
-    //מאפס את הסטטוסים והזמנים של השחקנים בפיירבייס
-    public void ChangeCards()
-    {
-        currentCard = currentCard + 2;
-        board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
-        currentRound.setTime1(0);
-        currentRound.setStatusP1(AppConstants.WAIT);
-        currentRound.setTime2(0);
-        currentRound.setStatusP2(AppConstants.WAIT);
-        fBwork.updateRound(currentRound,gameId, thisPlayer);
+
+    public void gameOver(int cardCounter) {
+
+
+        view.displayGameOver(cardCounter);
+
     }
 }

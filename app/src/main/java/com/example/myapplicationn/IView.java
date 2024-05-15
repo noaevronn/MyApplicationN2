@@ -6,6 +6,9 @@ public interface IView {
      void showCounter();
 
 
+     void displayGameOver(int res);
+
+
 
 
             }

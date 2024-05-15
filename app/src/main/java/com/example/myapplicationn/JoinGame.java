@@ -52,7 +52,6 @@ public class JoinGame extends AppCompatActivity {
         intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
         intent.putExtra(Intent.EXTRA_TEXT, "Hello! this is your code for the game:" + gameId + "    .Join and play with me:) ");
         startActivityForResult(Intent.createChooser(intent, "Share using"), 1);
-
     }
 
 
