@@ -71,7 +71,7 @@ public class FBwork
                             // check game over
                             if(round.getStatus() == 5 || round.getStatus() == 4)
                             {
-                               gameManager.gameOver(cardCounter);
+                               gameManager.gameOver(cardCounter, round.getStatus());
 
                             }
 

@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements IView
 
     TextView counter;
     private String gameID;
-    DocumentReference ref;
 
     PopupWindow popUp;
     int player;
@@ -143,10 +142,12 @@ public class MainActivity extends AppCompatActivity implements IView
     }
 
     @Override
-    public void displayGameOver(int res) {
+    public void displayGameOver(int res, int status) {
 
         String message = " YOU  WIN";
-        if(res==0)
+        if(status == 4 && player == AppConstants.OTHER)
+            message="YOU LOST ";
+        else if (status == 5 && player == AppConstants.HOST)
             message="YOU LOST ";
         // Create the object of AlertDialog Builder class
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

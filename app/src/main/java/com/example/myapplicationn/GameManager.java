@@ -284,10 +284,10 @@ public class GameManager implements IGame{
     }
 
 
-    public void gameOver(int cardCounter) {
+    public void gameOver(int cardCounter, int status) {
 
 
-        view.displayGameOver(cardCounter);
+        view.displayGameOver(cardCounter, status);
 
     }
 }

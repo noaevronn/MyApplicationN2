@@ -1,8 +1,11 @@
 package com.example.myapplicationn;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -45,16 +48,32 @@ public class JoinGame extends AppCompatActivity {
 
     }
 
+    ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+          //      if (result.getResultCode() == Activity.RESULT_OK) {
+                    // Handle the returned data here
+                    Intent i = new Intent(this, MainActivity.class);
+                    i.putExtra("gameId", gameId);
+                    i.putExtra("player", AppConstants.HOST);
+                    i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
+                    startActivity(i);
+
+      //          }
+            }
+    );
     public void ShareWithFriends(View view) //נפתח מלחיצה על התמונה של השיתוף
     {
         //אינטנט מרומז
         Intent intent = new Intent(Intent.ACTION_SEND); //אומר שרוצים לשתף מידע
         intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
         intent.putExtra(Intent.EXTRA_TEXT, "Hello! this is your code for the game:" + gameId + "    .Join and play with me:) ");
-        startActivityForResult(Intent.createChooser(intent, "Share using"), 1);
+        //startActivityForResult(Intent.createChooser(intent, "Share using"), 1);
+     //   Intent shareIntent = Intent.createChooser(intent, null);
+        mActivityResultLauncher.launch(intent);
     }
 
-
+/*
     protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data)
     {
         //אחרי שליחת הקוד מעביר למסך הבא של המשחק עצמו בחדר שנשלח לחבר
@@ -67,6 +86,8 @@ public class JoinGame extends AppCompatActivity {
         startActivity(i);
     }
 
+
+ */
 
     private void AddRoundToFb(Round round)
     {
