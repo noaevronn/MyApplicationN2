@@ -120,13 +120,13 @@ public class JoinGame extends AppCompatActivity {
                 });
     }
 
-    public void onClickPractice(View view)
+    /*public void onClickPractice(View view)
     {
         Intent i = new Intent(JoinGame.this, MainActivity.class);
         i.putExtra(AppConstants.GAME_CONFIG, AppConstants.ONE_PHONE);
         startActivity(i);
     }
-
+*/
     public void onClickJoinGame(View view)
     {
         //מציג את האדיט טקסט והכפתור של ההצטרפות לחדר

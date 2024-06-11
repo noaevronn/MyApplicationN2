@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/registryback"
     android:layout_height="match_parent"
     tools:context=".Registry">
 
+
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="125dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="42dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,11 +25,12 @@
 
     <TextView
         android:id="@+id/textViewPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="205dp"
+        android:layout_height="59dp"
         android:layout_marginTop="57dp"
         android:text="Password: "
-        android:textSize="20sp"
+        android:textSize="40dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -35,9 +39,10 @@
 
     <EditText
         android:id="@+id/etEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="329dp"
+        android:layout_height="131dp"
         android:ems="10"
+        android:textColor="@color/black"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -46,30 +51,30 @@
 
     <TextView
         android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="72dp"
         android:text="Email: "
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/etEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 
-
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="264dp"
+        android:layout_height="97dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="141dp"
         android:fontFamily="sans-serif-black"
         android:text="Registry"
-        android:textColor="#2196F3"
+        android:textColor="@color/black"
         android:textColorHint="#2196F3"
         android:textColorLink="#2196F3"
-        android:textSize="34sp"
+        android:textSize="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,11 +83,18 @@
         android:id="@+id/buttonLOGIN"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="159dp"
+        android:layout_marginBottom="176dp"
         android:onClick="LogInClick"
         android:text="Log In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-      />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="205dp"
+        android:layout_height="190dp"
+        app:srcCompat="@drawable/logo"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="-4dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
