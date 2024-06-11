@@ -94,7 +94,8 @@
         android:id="@+id/imageView"
         android:layout_width="205dp"
         android:layout_height="190dp"
-        app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="-4dp" />
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
