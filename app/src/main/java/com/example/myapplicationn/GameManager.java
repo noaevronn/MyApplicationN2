@@ -68,9 +68,9 @@ public class GameManager implements IGame{
             fBwork.setGameStatus(this.gameId,AppConstants.JOINED);
         }
 
-        CreateDeck(); //???
+        CreateDeck();
         board.setGameManager(this);
-        Indxs = d;// ???
+        Indxs = d;
 
         board.makeTurn(deck.get(Indxs.get(currentCard)), deck.get(Indxs.get(currentCard + 1)));
 

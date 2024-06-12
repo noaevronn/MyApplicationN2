@@ -37,7 +37,7 @@ public class JoinGame extends AppCompatActivity {
     public void onClickCreateGameInFb(View view)
     {
         board = new Board(this);
-        gm = new GameManager(board);
+        //gm = new GameManager(board);
 
         Round r = new Round();
         r.setStatus(AppConstants.CREATED);
@@ -68,26 +68,8 @@ public class JoinGame extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_SEND); //אומר שרוצים לשתף מידע
         intent.setType("text/plain"); //כדי שיהיה אפשר לשתף טקסט
         intent.putExtra(Intent.EXTRA_TEXT, "Hello! this is your code for the game:" + gameId + "    .Join and play with me:) ");
-        //startActivityForResult(Intent.createChooser(intent, "Share using"), 1);
-     //   Intent shareIntent = Intent.createChooser(intent, null);
         mActivityResultLauncher.launch(intent);
     }
-
-/*
-    protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data)
-    {
-        //אחרי שליחת הקוד מעביר למסך הבא של המשחק עצמו בחדר שנשלח לחבר
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Intent i = new Intent(this, MainActivity.class);
-        i.putExtra("gameId", gameId);
-        i.putExtra("player", AppConstants.HOST);
-        i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
-        startActivity(i);
-    }
-
-
- */
 
     private void AddRoundToFb(Round round)
     {
@@ -120,13 +102,6 @@ public class JoinGame extends AppCompatActivity {
                 });
     }
 
-    /*public void onClickPractice(View view)
-    {
-        Intent i = new Intent(JoinGame.this, MainActivity.class);
-        i.putExtra(AppConstants.GAME_CONFIG, AppConstants.ONE_PHONE);
-        startActivity(i);
-    }
-*/
     public void onClickJoinGame(View view)
     {
         //מציג את האדיט טקסט והכפתור של ההצטרפות לחדר
