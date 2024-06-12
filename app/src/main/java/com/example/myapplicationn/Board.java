@@ -31,9 +31,7 @@ Board extends View
     public Board(Context context)
     {
         super(context);
-
         initBoard(context);
-
         circle1 = new MyCircle(AppConstants.X, AppConstants.Y1 ,AppConstants.RADIUS);
         circle2 = new MyCircle(AppConstants.X, AppConstants.Y2 ,AppConstants.RADIUS);
         this.context = context;
@@ -64,10 +62,6 @@ Board extends View
     protected void onDraw(Canvas canvas)
         {
         super.onDraw(canvas);
-
-
-        //
-
 
         if(userCard == null || deckCard ==null)
             return;

@@ -22,6 +22,7 @@ public class GameManager implements IGame{
 
     String gameId="";
     ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
+    /*
     public GameManager(Board b) //one player - practice
     {
         board = b;
@@ -34,7 +35,7 @@ public class GameManager implements IGame{
         }
         Collections.shuffle(Indxs);
     }
-
+*/
 
 
     public GameManager(Board board, String gameID, int player, IView v) //two players
@@ -248,41 +249,10 @@ public class GameManager implements IGame{
         fBwork.updateRound(currentRound,gameId, thisPlayer);
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public ArrayList<Card> getDeck() {
-        return deck;
-    }
-
-    public void setDeck(ArrayList<Card> deck) {
-        this.deck = deck;
-    }
-
-    public int getCurrentCard() {
-        return currentCard;
-    }
-
-    public void setCurrentCard(int currentCard) {
-        this.currentCard = currentCard;
-    }
 
     public ArrayList<Integer> getIndxs() {
         return Indxs;
     }
-
-    public void setIndxs(ArrayList<Integer> indxs) {
-        Indxs = indxs;
-    }
-
-    public void setGameDeck(ArrayList<Integer> myGameDeck) {
-    }
-
 
     public void gameOver(int cardCounter, int status) {
 

@@ -45,7 +45,7 @@ public class Registry extends AppCompatActivity
                       @Override
                       public void onComplete(@NonNull Task<AuthResult> task)
                       {
-                          if (task.isSuccessful() == true)
+                          if (task.isSuccessful() == true) // הרישום הצליח
                           {
                               Toast.makeText(Registry.this, "Registry Success", Toast.LENGTH_LONG).show();
                               Intent intent = new Intent(Registry.this, JoinGame.class);

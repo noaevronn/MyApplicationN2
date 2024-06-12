@@ -19,38 +19,16 @@ public class MyCircle
         paint.setStrokeWidth(12);
     }
 
-    public MyCircle() {}
-
     public Paint getPaint() {
         return paint;
     }
-
-    public void setPaint(Paint paint)
-    {
-        this.paint = paint;
-    }
-
     public float getX() {
         return x;
     }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
     public float getY() {
         return y;
     }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
     public float getR() {
         return r;
-    }
-
-    public void setR(float r) {
-        this.r = r;
     }
 }

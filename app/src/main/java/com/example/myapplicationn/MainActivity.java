@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements IView
         board = new Board(this);
         setContentView(R.layout.activity_main);
         linearLayout = (LinearLayout)findViewById(R.id.game);
-
+/*
         //single phone
         if (gameConfig== AppConstants.ONE_PHONE)
         {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements IView
             gm = new GameManager(board); // CREATE gm OF ONE PHONE
             dismissPopup();
         }
-        else //two phones
+        else */ //two phones
         //should be passed to gm
         //which is created in board game
         {

@@ -143,17 +143,14 @@ public class FBwork
     public void setGameManager(GameManager gameManager) {
 
         this.gameManager = gameManager;
-
-        //
-
         cardCounter=10;
     }
-
+    /*
     public void setRound(Round currentRound, String gameId) {
 
         fb.collection("Rounds").document(gameId).set(currentRound);
     }
-
+*/
     public void updateRound(Round currentRound, String gameId, int player)
     {
         if (player == AppConstants.HOST)
@@ -168,7 +165,5 @@ public class FBwork
         }
     }
 
-
-    //לא לשכוח לסיים את ההאזנה בסוף המשחק!!!!!
 
 }
