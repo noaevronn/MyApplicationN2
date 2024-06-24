@@ -22,7 +22,7 @@ public class GameManager implements IGame{
 
     String gameId="";
     ArrayList<Integer> Indxs = new ArrayList<>(); //מערך של האינדקסים של הקלפים ואחכ מערבבים אותו
-    /*
+
     public GameManager(Board b) //one player - practice
     {
         board = b;
@@ -35,7 +35,7 @@ public class GameManager implements IGame{
         }
         Collections.shuffle(Indxs);
     }
-*/
+
 
 
     public GameManager(Board board, String gameID, int player, IView v) //two players

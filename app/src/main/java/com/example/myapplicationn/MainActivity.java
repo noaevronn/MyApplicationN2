@@ -27,8 +27,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.units.qual.C;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements IView
     Board board;
     LinearLayout linearLayout;
 
+    User user;
     TextView counter;
     private String gameID;
 
@@ -145,10 +148,38 @@ public class MainActivity extends AppCompatActivity implements IView
     public void displayGameOver(int res, int status) {
 
         String message = " YOU  WIN";
-        if(status == 4 && player == AppConstants.OTHER)
-            message="YOU LOST ";
-        else if (status == 5 && player == AppConstants.HOST)
-            message="YOU LOST ";
+        if(status == 4)
+        {
+            FirebaseFirestore fb = FirebaseFirestore.getInstance();
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            if (player == AppConstants.OTHER)
+            {
+                message="YOU LOST ";
+                fb.collection("User").document(mAuth.getCurrentUser().getUid())
+                        .update("losts", FieldValue.increment(1));
+            }
+            else if (player == AppConstants.HOST)
+            {
+                fb.collection("User").document(mAuth.getCurrentUser().getUid())
+                        .update("wins", FieldValue.increment(1));
+            }
+        }
+        else if (status == 5)
+        {
+            FirebaseFirestore fb = FirebaseFirestore.getInstance();
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            if (player == AppConstants.HOST)
+            {
+                message="YOU LOST ";
+                fb.collection("User").document(mAuth.getCurrentUser().getUid())
+                        .update("losts", FieldValue.increment(1));
+            }
+            else if (player == AppConstants.OTHER)
+            {
+                fb.collection("User").document(mAuth.getCurrentUser().getUid())
+                        .update("wins", FieldValue.increment(1));
+            }
+        }
         // Create the object of AlertDialog Builder class
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 

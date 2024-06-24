@@ -5,18 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registry extends AppCompatActivity
   {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
       @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,8 +43,19 @@ public class Registry extends AppCompatActivity
       {
           EditText etMail = findViewById(R.id.etEmailAddress);
           EditText etPass = findViewById(R.id.etPassword);
+          EditText etName = findViewById(R.id.eTName);
+
+          if(TextUtils.isEmpty(etMail.getText()) || TextUtils.isEmpty(etName.getText()) || TextUtils.isEmpty(etPass.getText()))
+          {
+              Toast.makeText(this, "One of your fields is empty!!", Toast.LENGTH_LONG).show();
+              return;
+          }
+
           String mail = etMail.getText().toString();
           String pass = etPass.getText().toString();
+          // read username
+          String name = etName.getText().toString();
+
           mAuth.createUserWithEmailAndPassword(mail, pass)
                   .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                       @Override
@@ -48,8 +64,20 @@ public class Registry extends AppCompatActivity
                           if (task.isSuccessful() == true) // הרישום הצליח
                           {
                               Toast.makeText(Registry.this, "Registry Success", Toast.LENGTH_LONG).show();
-                              Intent intent = new Intent(Registry.this, JoinGame.class);
-                              startActivity(intent);
+
+
+                              // create User object - with default values and use the username entered
+                              User user = new User(name);
+                              // add the user object to FB collection users
+                              FirebaseFirestore fb = FirebaseFirestore.getInstance();
+                              fb.collection("User").document(mAuth.getCurrentUser().getUid()).set(user)
+                                      .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                          @Override
+                                          public void onSuccess(Void unused) {
+                                              Intent intent = new Intent(Registry.this, JoinGame.class);
+                                              startActivity(intent);
+                                          }
+                                      });
                           }
                           else
                           {

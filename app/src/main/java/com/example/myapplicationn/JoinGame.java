@@ -37,7 +37,7 @@ public class JoinGame extends AppCompatActivity {
     public void onClickCreateGameInFb(View view)
     {
         board = new Board(this);
-        //gm = new GameManager(board);
+        gm = new GameManager(board);
 
         Round r = new Round();
         r.setStatus(AppConstants.CREATED);
@@ -130,6 +130,11 @@ public class JoinGame extends AppCompatActivity {
         i.putExtra(AppConstants.GAME_CONFIG, AppConstants.TWO_PHONES);
         startActivity(i);
 
+
+    }
+
+    public void GamesRules(View view)
+    {
 
     }
 }

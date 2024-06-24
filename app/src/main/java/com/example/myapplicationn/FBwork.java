@@ -122,8 +122,6 @@ public class FBwork
                                     setGameStatus(gameID,AppConstants.WINP2);
                                 else
                                     setGameStatus(gameID,AppConstants.WINP1);
-
-
                             }
 
                             if (round.getStatus() == AppConstants.STARTED) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
