@@ -47,6 +47,7 @@ public class FBwork
 
 
 
+        private boolean gameOver = false;
         public void handleGame(String gameID)
         {
             if(!listening) {
@@ -69,9 +70,10 @@ public class FBwork
                             }
 
                             // check game over
-                            if(round.getStatus() == 5 || round.getStatus() == 4)
+                            if((round.getStatus() == 5 || round.getStatus() == 4)&&!gameOver)
                             {
                                gameManager.gameOver(cardCounter, round.getStatus());
+                               gameOver=true;
 
                             }
 
@@ -124,7 +126,10 @@ public class FBwork
                                     setGameStatus(gameID,AppConstants.WINP1);
                             }
 
-                            if (round.getStatus() == AppConstants.STARTED) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
+                            if(round.getStatusP1()==0&& round.getStatusP2()==0)
+                                return;
+
+                            if (round.getStatus() == AppConstants.STARTED && (round.getStatusP1()!=0 || round.getStatusP2()!=0)) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
                                 gameManager.ChangeCards();
                         }
                     }

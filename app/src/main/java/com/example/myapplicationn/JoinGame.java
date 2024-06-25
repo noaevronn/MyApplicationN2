@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -135,6 +136,14 @@ public class JoinGame extends AppCompatActivity {
 
     public void GamesRules(View view)
     {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_box_instructions);
+        dialog.show();
+    }
 
+    public void GoToLeaderBoard(View view)
+    {
+        Intent i = new Intent(this, LeaderBoard.class);
+        startActivity(i);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.myapplicationn;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -76,5 +78,11 @@ public class LeaderBoard extends AppCompatActivity {
                         tv.setText("Your number of wins is: " + u.getWins());
                     }
                 });
+    }
+
+    public void BackToGame(View view)
+    {
+        Intent i = new Intent(this, JoinGame.class);
+        startActivity(i);
     }
 }
