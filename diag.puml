@@ -1,0 +1,185 @@
+@startuml
+class com.example.myapplicationn.FBwork {
+- GameManager gameManager
+- boolean listening
+~ FirebaseFirestore fb
++ void getRound(String)
++ void handleGame(String)
++ void setGameStatus(String,int)
++ void setGameManager(GameManager)
++ void updateRound(Round,String,int)
+}
+
+
+class com.example.myapplicationn.MainActivity {
+~ Board board
+~ LinearLayout linearLayout
+~ TextView counter
+- String gameID
+~ PopupWindow popUp
+~ int player
+~ GameManager gm
+# void onCreate(Bundle)
+# void onResume()
+- void dismissPopup()
+- void showGame(String,int)
++ void showBoard()
++ void showCounter()
++ void displayGameOver(int,int)
+}
+
+
+interface com.example.myapplicationn.IGame {
+~ void userResult(boolean)
+}
+
+interface com.example.myapplicationn.IView {
+~ void showBoard()
+~ void showCounter()
+~ void displayGameOver(int,int)
+}
+
+class com.example.myapplicationn.GameManager {
+~ Board board
+- Round currentRound
+- int thisPlayer
+~ IView view
+~ ArrayList<Card> deck
+~ int currentCard
+~ FBwork fBwork
+~ String gameId
+~ ArrayList<Integer> Indxs
++ IView getView()
++ void roundFromFirebase(ArrayList<Integer>,Round)
++ void userResult(boolean)
++ void notifyViewGameStarted()
++ void CreateDeck()
++ boolean CheckDeck()
++ int checkArr(int[],int[])
++ void ChangeCards()
++ ArrayList<Integer> getIndxs()
++ void gameOver(int,int)
+}
+
+
+class com.example.myapplicationn.Registry {
+~ FirebaseAuth mAuth
+# void onCreate(Bundle)
++ void LogInClick(View)
+}
+
+
+class com.example.myapplicationn.JoinGame {
+~ Board board
+~ GameManager gm
+- String gameId
+~ ActivityResultLauncher<Intent> mActivityResultLauncher
+# void onCreate(Bundle)
++ void onClickCreateGameInFb(View)
++ void ShareWithFriends(View)
+- void AddRoundToFb(Round)
++ void onClickJoinGame(View)
++ void onClickToJoinRound(View)
+}
+
+
+class com.example.myapplicationn.MyCircle {
+- float x
+- float y
+- float r
+- Paint paint
++ Paint getPaint()
++ float getX()
++ float getY()
++ float getR()
+}
+
+
+class com.example.myapplicationn.AppConstants {
++ {static} int RADIUS
++ {static} float X
++ {static} float Y1
++ {static} float Y2
++ {static} float[] arrX
++ {static} float[] arrY1
++ {static} float[] arrY2
++ {static} int CREATED
++ {static} int JOINED
++ {static} int STARTED
++ {static} int WINP1
++ {static} int WINP2
++ {static} int WIN
++ {static} int LOST
++ {static} int WAIT
++ {static} int LENGTH
++ {static} int cardCounter
++ {static} String GAME_CONFIG
++ {static} int ONE_PHONE
++ {static} int TWO_PHONES
++ {static} int HOST
++ {static} int OTHER
++ {static} long startTime
++ {static} long endTime
++ {static} int currentPlayer
+}
+
+class com.example.myapplicationn.Round {
+~ int statusP1
+~ int statusP2
+~ float time1
+~ float time2
+~ int status
+~ ArrayList<Integer> myGameDeck
++ int getStatusP1()
++ void setStatusP1(int)
++ int getStatusP2()
++ void setStatusP2(int)
++ float getTime1()
++ void setTime1(float)
++ float getTime2()
++ void setTime2(float)
++ int getStatus()
++ void setStatus(int)
++ ArrayList<Integer> getMyGameDeck()
++ void setMyGameDeck(ArrayList<Integer>)
+}
+
+
+class com.example.myapplicationn.Board {
+~ Context context
+~ Bitmap bitmap
+~ MyCircle circle1
+~ int[] bitmaps
+~ Card userCard
+~ Card deckCard
+- GameManager gameManager
+- void initBoard(Context)
++ void makeTurn(Card,Card)
+# void onDraw(Canvas)
++ boolean onTouchEvent(MotionEvent)
+- boolean CheckIfTrue(int,int)
+- int findClickedImage(float,float,int)
++ void setGameManager(GameManager)
+}
+
+
+class com.example.myapplicationn.Card {
+- int[] card
+- int index
++ void addImage(int)
++ int[] getCard()
++ void setCard(int[])
++ int getIndex()
++ void setIndex(int)
+}
+
+
+
+
+com.example.myapplicationn.IView <|.. com.example.myapplicationn.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplicationn.MainActivity
+com.example.myapplicationn.IGame <|.. com.example.myapplicationn.GameManager
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplicationn.Registry
+androidx.appcompat.app.AppCompatActivity <|-- com.example.myapplicationn.JoinGame
+android.view.View <|-- com.example.myapplicationn.Board
+@enduml
