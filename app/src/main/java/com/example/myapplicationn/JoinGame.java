@@ -81,7 +81,7 @@ public class JoinGame extends AppCompatActivity {
                     {
                         TextView tv = findViewById(R.id.codeTextV);
                         ImageView imageView = findViewById(R.id.shareImageView);
-                        gameId = "AEj4y1SybgjwvAjmLpCL";// documentReference.getId();
+                        gameId = documentReference.getId();//"AEj4y1SybgjwvAjmLpCL";// documentReference.getId();
                         tv.setText("Your game code is: " + gameId + "  .Share it with your friend!");
                         tv.setVisibility(View.VISIBLE);
                         imageView.setVisibility(View.VISIBLE);
@@ -123,7 +123,7 @@ public class JoinGame extends AppCompatActivity {
     {
         //לאחר הלחיצה על הכפתור של ההצטרפות לחדר
         EditText editText = findViewById(R.id.editTextCode);
-        gameId = "AEj4y1SybgjwvAjmLpCL";//editText.getText().toString(); //שומר את הקוד שהמשתמש הכניס
+        gameId = editText.getText().toString();//"AEj4y1SybgjwvAjmLpCL";//editText.getText().toString(); //שומר את הקוד שהמשתמש הכניס
         Intent i = new Intent(this, MainActivity.class);
         //putExtra - מוסיף מידע למסך אליו האינטנט עובר
         i.putExtra("gameId", gameId);
