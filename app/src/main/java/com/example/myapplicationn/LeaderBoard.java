@@ -46,21 +46,23 @@ public class LeaderBoard extends AppCompatActivity {
 
         ArrayList<String> arr = new ArrayList<>();
 
+        //להביא את היוזרים לפי דירוג ורק את ה10 הראשונים
         fb.collection("User").orderBy("wins", Query.Direction.DESCENDING).limit(10).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for(int i=0;i< queryDocumentSnapshots.getDocuments().size();i++)
                         {
-                            User u = queryDocumentSnapshots.getDocuments().get(i).toObject(User.class);
+                            User u = queryDocumentSnapshots.getDocuments().get(i).toObject(User.class); //מומר ליוזר
 
-                            String toShow = "" + (i+1) + ".\t" + u.getName() + " : " + u.getWins();
+                            String toShow = "" + (i+1) + ".\t" + u.getName() + " : " + u.getWins(); //הפיכת שם השחקן למחרוזת
                             arr.add(toShow);
 
                         }
 
                         ListView lv = findViewById(R.id.listView);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(LeaderBoard.this, android.R.layout.simple_list_item_1,arr);
+                        //מתאם בין השמות לכמות הניצחונות של כל שחקן
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(LeaderBoard.this, android.R.layout.simple_list_item_1,arr); //מתאם
 
                         lv.setAdapter(adapter);
                     }

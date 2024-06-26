@@ -3,8 +3,8 @@ package com.example.myapplicationn;
 public class AppConstants
 {
 
-    public static int RADIUS = 450;
-    public static float X = 900;
+    public static int RADIUS = 450;  //רדיוס העיגול של הקלף
+    public static float X = 900;  //מיקום האיקס של הקלף
     public static float Y1 = 600;
     public static float Y2 = 1650;
 

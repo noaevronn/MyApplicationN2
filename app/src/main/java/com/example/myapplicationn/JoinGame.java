@@ -35,7 +35,8 @@ public class JoinGame extends AppCompatActivity {
         setContentView(R.layout.activity_join_game);
     }
 
-    public void onClickCreateGameInFb(View view)
+    public void onClickCreateGameInFb(View view) //פעולה זו נקראת כאשר המשתמש לוחץ על הכפתור ליצירת משחק.
+    // היא יוצרת משחק חדש ב FireBase  ומשנה את סטטוס המשחק ומעדכנת את כל ערכי המשחק להתחלתיים
     {
         board = new Board(this);
         gm = new GameManager(board);
@@ -49,6 +50,9 @@ public class JoinGame extends AppCompatActivity {
 
     }
 
+    //זהו משתנה שמחזיק את ה-Launcher שמשמש להפעלת פעילות אחרת ולחכות לתוצאה ממנה
+    //מזמן אקטיביטי מסוים וכשמסיים הוא חוזר אליי ואני מקבלת מידע האם הוא הצליח או לא
+    //המונח Launcher מתייחס למנגנון שמפעיל פעילות אחרת (Activity) ומטפל בתוצאה המוחזרת ממנה
     ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -72,6 +76,7 @@ public class JoinGame extends AppCompatActivity {
         mActivityResultLauncher.launch(intent);
     }
 
+    //פעולה זו מוסיפה את המשחק לFireBase ומקבלת כפרמטר אובייקט מסוג Round שמייצג את המשחק שנוצר
     private void AddRoundToFb(Round round)
     {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();

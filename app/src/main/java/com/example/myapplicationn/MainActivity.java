@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements IView
 
         int gameConfig = getIntent().getIntExtra(AppConstants.GAME_CONFIG,0);
         board = new Board(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main); //הגדרת תצוגת הפעילות
         linearLayout = (LinearLayout)findViewById(R.id.game);
 /*
         //single phone
@@ -77,11 +77,12 @@ public class MainActivity extends AppCompatActivity implements IView
     }
 
 
+    //מציג את הפופאפ עם טיימר כאשר השחקן השני נכנס למשחק
     @Override
     protected void onResume() { //shows the popup
         super.onResume();
 
-        new Thread(new Runnable() {
+        new Thread(new Runnable() { //יצירת תהליך (Thread) חדש שמבצע את הפעולות הבאות ברקע, כדי שלא יפריע לתהליך הראשי
             @Override
             public void run() {
                 SystemClock.sleep(300);
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements IView
                     @Override
                     public void run() {
 
+                        //יוצר תצוגה חדשה של הפופ אפ
                         View popupView = LayoutInflater.from(MainActivity.this).inflate(R.layout.pop_up_layout, null);
 
                         counter = popupView.findViewById(R.id.textView3);
@@ -144,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements IView
         ctd.start();
     }
 
+    //מציג הדעת סיום המשחק עם כפתור יציאה.
+    // מגדיר הודעת סיום בהתאם לתוצאות המשחק וסטטוס השחקן. מציג תיבת דיאלוג עם הודעת סיום המשחק.
+    // אם המשתמש לוחץ על כפתור היציאה הוא מסיים את הפעילות
+    //עדכון כמות נצחונות והפסדים בפיירבייס
     @Override
     public void displayGameOver(int res, int status) {
 

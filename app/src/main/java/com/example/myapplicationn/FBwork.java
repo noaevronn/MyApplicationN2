@@ -33,7 +33,8 @@ public class FBwork
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
 
-        public void getRound(String ref)
+        public void getRound(String ref) //מביא את המידע על הסיבוב הנוכחי מהFireBase
+        // ומעביר אותו לGameManager. מאפשר לGameManager לדעת את הקלפים הנוכחיים בסיבוב המשחק
         {
             fb.collection("Rounds").document(ref).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -48,55 +49,56 @@ public class FBwork
 
 
         private boolean gameOver = false;
-        public void handleGame(String gameID)
-        {
+        public void handleGame(String gameID) //הפעולה מאזינה לשינויים במשחק. כל שינוי או לחיצה שקורית בלוח מובילים לפעולה הזאת.
+        // הפעולה בודקת איזה שינוי היה:
+    //אם זה שינוי סטטוס היא מגיבה בהתאם – מתחילה משחק/ מסיימת משחק/ מודיעה על ניצחון.
+   // במידה ותשובת השחקן נכונה או שגויה היא מוסיפה ומורידה לו מהקלפים.
+    {
             if(!listening) {
                 listening = true;
 
-
-//
+                //ניגש לקולקשן הספציפי של ראונדס ומביא את הדוקיומנט הספציפי לפי המזהה הייחודי שלו
                 fb.collection("Rounds").document(gameID).addSnapshotListener((Activity)(gameManager.getView()),new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        //בדיקה שלא מתעסקים עם null
                         if (value != null && value.exists()) {
 
                             // value holds Round object
+                            // להמיר את אובגקט לראונד
                             Round round = value.toObject(Round.class);
 
-
+                            //אם המשחק נוצר - אין מה לעשות עדיין, להמשיך להמתין לשחקן שיצטרף
                             if (round.getStatus() == AppConstants.CREATED)
                             {
                                 return;
                             }
 
-                            // check game over
-                            if((round.getStatus() == 5 || round.getStatus() == 4)&&!gameOver)
-                            {
-                               gameManager.gameOver(cardCounter, round.getStatus());
-                               gameOver=true;
 
-                            }
-
+                            // אם השחקן השני הצטרף - מעדכנים שהמשחק מתחיל
+                            // (שינוי סטטוס, הקאונטר של הפופאפ מתחיל לספור חמש שניות
                             if (round.getStatus() == AppConstants.JOINED) {
                                 gameManager.notifyViewGameStarted();
                                 if(AppConstants.currentPlayer==AppConstants.HOST)
-                                // timer for 3 seconds
-                                 //   round.setStatus(AppConstants.STARTED);
+                                // timer for 5 seconds
                                     setGameStatus(gameID,AppConstants.STARTED);
 
                                 return;
                             }
+
                             //מאזין אם אחד השחקנים לחץ על אחד הקלפים
                             if (round.getStatusP1() != 0) {
                                 if (round.getStatusP1() == 1) {
-                                    //תציג הודעה שהשחקן שהוא HOST ניצח בסיבוב הזה
+                                    // ההוסט  ניצח בסיבוב הזה , עולה לו מספר הקלפים - לאוטר יורד
                                     if (currentPlayer == AppConstants.HOST)
                                         cardCounter++;
                                     else
+
                                         cardCounter--;
                                 }
                                 else
                                 {
+                                    // ההוסט  הפסיד בסיבוב הזה , יורד לו מספר הקלפים - לאוטר עולה
                                     if (currentPlayer == AppConstants.HOST)
                                         cardCounter--;
                                     else
@@ -104,13 +106,13 @@ public class FBwork
                                 }
                             } else if (round.getStatusP2() != 0) {
                                 if (round.getStatusP2() == 1) {
-                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                    //האוטר  ניצח בסיבוב הזה , עולה לו מספר הקלפים - להוסט יורד
                                     if (currentPlayer == AppConstants.OTHER)
                                         cardCounter++;
                                     else
                                         cardCounter--;
                                 } else {
-                                    //תציג הודעה שהשחקן שהוא OTHER ניצח בסיבוב הזה
+                                    //האוטר  הפסיד בסיבוב הזה , יורד לו מספר הקלפים - להוסט עולה
                                     if (currentPlayer == AppConstants.OTHER)
                                         cardCounter--;
                                     else
@@ -118,6 +120,7 @@ public class FBwork
                                 }
                             }
 
+                            //בדיקה האם לאחד השחקנים נגמרו הקלפים ואם כן לשנות סטטוס ולעצור משחק
                             if (cardCounter == 0)
                             {
                                 if (AppConstants.currentPlayer == AppConstants.HOST)
@@ -126,10 +129,21 @@ public class FBwork
                                     setGameStatus(gameID,AppConstants.WINP1);
                             }
 
+                            // check game over
+                            // סטטוס 5 - אוטר ניצח
+                            // סטטוס 4   - הוסט ניצח
+                            if((round.getStatus() == 5 || round.getStatus() == 4)&&!gameOver)
+                            {
+                                gameManager.gameOver(cardCounter, round.getStatus());
+                                gameOver=true;
+
+                            }
+
                             if(round.getStatusP1()==0&& round.getStatusP2()==0)
                                 return;
 
-                            if (round.getStatus() == AppConstants.STARTED && (round.getStatusP1()!=0 || round.getStatusP2()!=0)) //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
+                            //כדי שהשחקנים יתחילו עם אותם קלפים ולא יחליפו אותם כל פעם כשיש שינוי
+                            if (round.getStatus() == AppConstants.STARTED && (round.getStatusP1()!=0 || round.getStatusP2()!=0))
                                 gameManager.ChangeCards();
                         }
                     }
@@ -138,6 +152,7 @@ public class FBwork
         }
 
 
+        // מעדכן סטטוס
         public void setGameStatus(String ref,int status)
         {
             fb.collection("Rounds").document(ref).update("status",status);
@@ -154,6 +169,8 @@ public class FBwork
         fb.collection("Rounds").document(gameId).set(currentRound);
     }
 */
+
+    //מעדכן את סטטוס השחקנים בFireBase
     public void updateRound(Round currentRound, String gameId, int player)
     {
         if (player == AppConstants.HOST)
